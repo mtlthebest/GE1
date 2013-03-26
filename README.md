@@ -13,7 +13,7 @@ Using two different machines to host the same website really forces you to pay a
   - Character encoding (I'm trying to use UTF-8 for everything, and that's not so immediate to obtain...);
   - CSS (Cascade Style Sheets become very useful when you want to obtain a uniform
     aspect for your web pages while using different browsers: Internet Explorer, Google Chrome,
-    Mozilla Firefox, Opera...)
+    Mozilla Firefox, Opera...).
 
 The source code is written mainly in PHP. Obviously, I'm also using (X)HTML. I want to use XHTML 1.1 for my web pages. The source code here isn't enough to run the website. It's necessary to use an appropriate MySQL database back-end.
 
