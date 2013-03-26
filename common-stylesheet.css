@@ -1,0 +1,57 @@
+table {
+    text-align: center; 
+    margin-left: auto; 
+    margin-right: auto;
+    border-collapse: collapse;
+    border: solid black 1px;
+}
+
+.txtArea {
+	height: 100px;
+	width: 300px;
+	text-align: left;
+}
+
+form {
+	text-align: center;;
+	width: 800px;
+	margin-left: auto; 
+	margin-right: auto;}
+
+img {
+    border-style: none;
+}
+
+input, select {
+	text-align: center;
+    }
+
+.boxed {
+    border: 1px solid #940000;
+    margin-left: 20%; 
+    margin-right: 20%;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+}
+
+td {
+    text-align: center;
+    border: solid gray 1px;
+}
+
+th {
+    border: solid gray 1px;
+}
+
+.yellowCell {
+    background: #FFFF99;
+    font-weight:bold
+}
+
+.cr {
+    color: #B0B0B0;
+    font-size: 50%;
+    text-align: right; 
+}
