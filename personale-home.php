@@ -8,7 +8,7 @@ $h1HyperLink = "";
 $h2Title = "Elenco del personale militare";
 $h2HyperLink = "";
 
-include("common-open-page.inc");
+include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
@@ -70,5 +70,5 @@ function stampaDatiTabella($R)
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
-include("common-close-page.inc");
+include("common-close-page.inc.php");
 ?>

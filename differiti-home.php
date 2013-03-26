@@ -8,7 +8,7 @@ $h1HyperLink = "";
 $h2Title = "Gestione dei provvedimenti correttivi differiti";
 $h2HyperLink = "";
 
-include("common-open-page.inc");
+include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
@@ -21,7 +21,7 @@ $set = sendQuery($cxn, $query);
 $caption = "<a name=\"table\" id=\"table\"></a>Punto di situazione - Provvedimenti correttivi differiti";
 
 // include funzione rowFactory(...)
-include("differiti-factory-rows.inc");
+include("differiti-factory-rows.inc.php");
 
 // sequenza programma principale
 initTable($caption);
@@ -178,5 +178,5 @@ INTRO;
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
-include("common-close-page.inc");
+include("common-close-page.inc.php");
 ?>

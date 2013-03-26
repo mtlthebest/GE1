@@ -8,7 +8,7 @@ $h1HyperLink = "";
 $h2Title = "Portale web del Primo Gruppo Elicotteri";
 $h2HyperLink = "";
 
-include("common-open-page.inc");
+include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
@@ -43,5 +43,5 @@ echo $menuGE1;
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
-include("common-close-page.inc");
+include("common-close-page.inc.php");
 ?>

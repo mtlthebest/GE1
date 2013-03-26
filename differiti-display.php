@@ -8,12 +8,12 @@ $h1HyperLink = "";
 $h2Title = "Elenco provvedimenti correttivi differiti";
 $h2HyperLink = "differiti-home.php#table";
 
-include("common-open-page.inc");
+include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
 // costruzione query e caption specifiche
-include("differiti-factory-queriesAndCaptions.inc");
+include("differiti-factory-queriesAndCaptions.inc.php");
 $query   = queryAndCaptionFactory($_GET["eli"], $_GET["chiusi"], $_GET["tipo"], "query");
 $caption = queryAndCaptionFactory($_GET["eli"], $_GET["chiusi"], $_GET["tipo"], "caption");
 
@@ -109,5 +109,5 @@ function individuaTesto($res)
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
-include("common-close-page.inc");
+include("common-close-page.inc.php");
 ?>

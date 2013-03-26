@@ -8,7 +8,7 @@ $h1HyperLink = "";
 $h2Title = "Gestione provvedimenti correttivi differiti";
 $h2HyperLink = "differiti-home.php#table";
 
-include("common-open-page.inc");
+include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
@@ -58,5 +58,5 @@ echo $formCode;
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
-include("common-close-page.inc");
+include("common-close-page.inc.php");
 ?>
