@@ -5,6 +5,8 @@ $heading = <<<HEADING
   <div style="text-align: center">
     <a href="index.php"><img src="GRUPELICOT%20UNO.jpg" alt=
     "Primo Gruppo Elicotteri" /></a>
+    <img src="website_under_construction.png" alt=
+    "under construction" />
 
 
 HEADING;
