@@ -38,11 +38,11 @@ function scriviHeaderPrincipale() {
     <tr>
       <th colspan="2" rowspan="2">Elicottero</th>
 
+      <th rowspan="2">Apri differito</th>
+
       <th colspan="5">Differiti ancora aperti</th>
 
       <th rowspan="2">Tutti i differiti</th>
-
-      <th rowspan="2">Apri differito</th>
     </tr>
 
     <tr>
@@ -99,7 +99,7 @@ function scriviASH($R) {
 
 function scriviTutte($R) {
 	scriviCellaTutte();
-	rowFactory("Tutte le fiancate", "", $R);
+	rowFactory("tutte le fiancate", "", $R);
 }
 
 function scriviCella($letter, $rowspan) {

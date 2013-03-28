@@ -66,7 +66,7 @@ function queryAndCaptionFactory($chopper, $closed, $type, $request)
         $fields  = "`numerofiancata` as Elicottero, `inconveniente`, `tipologia` as `tipo`, `datainconveniente` as `data AP`, `firmaap` as `firma AP`, `note`, `provvedimentocorrettivoadottato` as provvedimento, `durataoreuomo` as `ore/uomo`, `datachiusura` as `data CH`, `firmach` as `firma CH`";
     }
     
-    $query = "SELECT $fields\nFROM view_differiti_nuova";
+    $query = "SELECT $fields\nFROM view_differiti";
     if ($wheres != "") {
         $query .= "\nWHERE ($wheres)"; // nel caso di restrizioni aggiunge la clausola WHERE
     }
