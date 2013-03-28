@@ -1,57 +1,63 @@
 table {
-    text-align: center; 
-    margin-left: auto; 
-    margin-right: auto;
-    border-collapse: collapse;
-    border: solid black 1px;
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+border-collapse:collapse;
+border:solid #000 1px
+}
+
+@font-face {
+font-family:Rabiohead;
+src:url(rabiohead.ttf)
 }
 
 .txtArea {
-	height: 100px;
-	width: 300px;
-	text-align: left;
+height:100px;
+width:800px;
+text-align:left;
+font:30px Rabiohead
 }
 
 form {
-	text-align: center;;
-	width: 800px;
-	margin-left: auto; 
-	margin-right: auto;}
-
-img {
-    border-style: none;
+text-align:center;
+margin-left:auto;
+margin-right:auto
 }
 
-input, select {
-	text-align: center;
-    }
+img {
+border-style:none
+}
+
+input,select {
+text-align:center
+}
 
 .boxed {
-    border: 1px solid #940000;
-    margin-left: 20%; 
-    margin-right: 20%;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 15px;
+border:1px solid #940000;
+margin-left:20%;
+margin-right:20%;
+padding-bottom:5px;
+padding-left:15px;
+padding-right:15px;
+margin-bottom:15px
 }
 
 td {
-    text-align: center;
-    border: solid gray 1px;
+text-align:center;
+border:solid gray 1px
 }
 
 th {
-    border: solid gray 1px;
+border:solid gray 1px
 }
 
 .yellowCell {
-    background: #FFFF99;
-    font-weight:bold
+background:#ff9;
+font-weight:700
 }
 
 .cr {
-    color: #B0B0B0;
-    font-size: 50%;
-    text-align: right; 
+color:#b0b0b0;
+font-size:50%;
+text-align:right
 }

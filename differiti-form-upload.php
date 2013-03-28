@@ -30,7 +30,7 @@ function visualizzaForm($resultTipo, $resultPersonale) {
 	echo "    <fieldset>\n";
 	echo "      <legend>Caricamento provvedimenti correttivi differiti (apertura differito fiancata ".$_GET['eli'].")</legend>\n";
 	// box testo differito
-	echo "\n    <p><input type='textarea' class='txtArea' value='inserire qui la descrizione del provvedimento correttivo differito' name='differito' /></p>";
+	echo "\n    <p><textarea class='txtArea' name='differito'>Inserire qui la descrizione del provvedimento correttivo differito...</textarea></p>";
 	
 	// selezione tipologia differito
 	echo "    <p><select name=\"tipo\">";
