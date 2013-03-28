@@ -14,11 +14,16 @@ include("common-open-page.inc.php");
 
 stampaIntroduzionePaginaWeb();
 
+// adminMode = $_POST['...']; // ancora da sviluppare sistema per determinare se l'utente è admin o in sola lettura
+$adminMode = TRUE;
+
 // connessione al database e ottenimento result-set
 $query = "SELECT * FROM view_differiti_menu";
 $cxn = connectToDatabase($host, $user, $password, $database);
 $set = sendQuery($cxn, $query);
 $caption = "<a name=\"table\" id=\"table\"></a>Punto di situazione - Provvedimenti correttivi differiti";
+if($adminMode)
+	$caption .= " / modalità amministratore";
 
 // include funzione rowFactory(...)
 include("differiti-factory-rows.inc.php");
@@ -38,7 +43,7 @@ function scriviHeaderPrincipale() {
     <tr>
       <th colspan="2" rowspan="2">Elicottero</th>
 
-      <th rowspan="2">Apri differito</th>
+      <th rowspan="2" style="color: red">Apri differito</th>
 
       <th colspan="5">Differiti ancora aperti</th>
 

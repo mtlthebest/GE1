@@ -25,45 +25,39 @@ $result = sendQuery($cxn, $query);
 stampaTabella($result, $caption, $adminMode);
 
 // funzioni utilizzate
-function stampaTabella($R, $capt, $isAdmin)
+function stampaTabella($R, $capt)
 {
     echo "  <table border=\"1\" summary=\"Questa tabella riepiloga i risultati della query SQL\">\n";
-    setTableCaption($capt, $isAdmin);
-    stampaIntestazioneTabella($R, $isAdmin);
+    setTableCaption($capt);
+    stampaIntestazioneTabella($R);
     $colonneDate  = individuaDate($R); // un array indica quali colonne contengono date; utilizzato per la successiva formattazione
     $colonneTesto = individuaTesto($R); // un array indica quali colonne contengono molto testo; utilizzato per la successiva formattazione
-    stampaDatiTabella($R, $isAdmin, $colonneDate, $colonneTesto);
+    stampaDatiTabella($R, $colonneDate, $colonneTesto);
     echo "  </table>\n";
     echo "\n  <p style=\"text-align: center; font-size: 75%; color: gray\">conteggio righe: ".mysqli_num_rows($R)."</p>";
     return;
 }
 
-function setTableCaption($capt, $admin)
+function setTableCaption($capt)
 {
     echo "    <caption>\n";
     echo "      " . $capt;
-    // in caso di amministratore, si segnala nella didascalia della tabella
-    if($admin)
-        echo " / modalità amministratore";
     echo "\n    </caption>\n";
     return;
 }
 
-function stampaIntestazioneTabella($R, $admin)
+function stampaIntestazioneTabella($R)
 {
     echo "\n    <tr>";
     $finfo = mysqli_fetch_fields($R);
     foreach ($finfo as $field) {
         echo "\n      <th>" . ucfirst($field->name) . "</th>\n";
     }
-    // in caso di amministratore, si aggiunge la colonna con i link per la modifica
-    if($admin)
-        echo "\n      <th style=\"color: red\">Modifica</th>\n";
     echo "    </tr>\n";
     return;
 }
 
-function stampaDatiTabella($R, $admin, $dateColumns, $textColumns)
+function stampaDatiTabella($R, $dateColumns, $textColumns)
 {
     for ($i = 0; $i < mysqli_num_rows($R); $i++) {
         echo "\n    <tr>";
@@ -81,9 +75,6 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns)
             echo "\n      <td>" . $value . "</td>\n";
             $j++;
         }
-        // in caso di amministratore, si aggiunge la colonna con i link per la modifica
-        if($admin)
-            echo "\n      <td><img src=\"edit_icon_mini.png\" alt=\"icona_edita\" /></td>\n";
         echo "    </tr>\n";
     }
     return;
