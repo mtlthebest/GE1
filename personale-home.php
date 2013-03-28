@@ -47,7 +47,7 @@ function stampaIntestazioneTabella($R)
 	$finfo = mysqli_fetch_fields($R);
 	foreach($finfo as $field)
 	{
-	echo "\n      <th>".ucfirst(fixEncoding($field->name))."</th>\n";
+	echo "\n      <th>".ucfirst($field->name)."</th>\n";
 	}
 	echo "    </tr>\n";
 	return;
@@ -61,7 +61,7 @@ function stampaDatiTabella($R)
         	$row = mysqli_fetch_row($R);
         	foreach($row as $value)
         	{
-           		echo "\n      <td>".fixEncoding($value)."</td>\n";
+           		echo "\n      <td>".$value."</td>\n";
         	}
         	echo "    </tr>\n";
 	}

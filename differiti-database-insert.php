@@ -13,11 +13,11 @@ include("common-open-page.inc.php");
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
 // variabili ricevute dal form
-$inconveniente = fixEncoding(trim(strip_tags($_POST['differito'])));
-$tipologia = fixEncoding($_POST['tipo']);
-$data = fixEncoding($_POST['data']);
-$nominativo = fixEncoding($_POST['firma']);
-$idElicottero = fixEncoding($_GET['ideli']);
+$inconveniente = trim(strip_tags($_POST['differito']));
+$tipologia = $_POST['tipo'];
+$data = $_POST['data'];
+$nominativo = $_POST['firma'];
+$idElicottero = $_GET['ideli'];
 
 // connessione al database
 $cxn = connectToDatabase($host, $user, $password, $database);

@@ -30,7 +30,6 @@ function visualizzaForm($result) {
 		$preselection = "";
 		extract($row);
 		if($gerarchia == '0') $preselection = ' selected="selected"';
-			$grado = fixEncoding($grado);
 		echo "\n        <option value='$id'".$preselection.">\n          $grado\n        </option>\n";
 	}
 	echo "      </select></p>\n";

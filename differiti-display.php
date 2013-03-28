@@ -49,7 +49,7 @@ function stampaIntestazioneTabella($R)
     echo "\n    <tr>";
     $finfo = mysqli_fetch_fields($R);
     foreach ($finfo as $field) {
-        echo "\n      <th>" . ucfirst(fixEncoding($field->name)) . "</th>\n";
+        echo "\n      <th>" . ucfirst($field->name) . "</th>\n";
     }
     echo "    </tr>\n";
     return;
@@ -66,11 +66,11 @@ function stampaDatiTabella($R, $dateColumns, $textColumns)
                 $value = date("d/m/Y", strtotime($value)); // nel caso, formatta la data per la visualizzazione in tabella
             
             if (in_array($j, $textColumns) && $value != "") { // controlla se l'attuale colonna "j" è tra le colonne relative al testo lungo
-                echo "\n      <td style=\"text-align: left\">" . fixEncoding($value) . "</td>\n"; // nel caso, formatta con rientro a sinistra
+                echo "\n      <td style=\"text-align: left\">" . $value . "</td>\n"; // nel caso, formatta con rientro a sinistra
                 $j++;
                 continue;
             }
-            echo "\n      <td>" . fixEncoding($value) . "</td>\n";
+            echo "\n      <td>" . $value . "</td>\n";
             $j++;
         }
         echo "    </tr>\n";

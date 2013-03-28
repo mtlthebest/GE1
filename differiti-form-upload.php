@@ -53,9 +53,6 @@ function visualizzaForm($resultTipo, $resultPersonale) {
 		extract($row);
 		if($gerarchia == '0')
 			$preselection = ' selected="selected"';
-		$grado = fixEncoding($grado);
-		$cognome = fixEncoding($cognome);
-		$nome = fixEncoding($nome);
 		echo "\n      <option value='$id'".$preselection.">\n        $grado $cognome $nome\n      </option>\n";
 	}
 	echo "    </select></p>";
