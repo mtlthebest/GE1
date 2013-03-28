@@ -5,7 +5,7 @@
 $title = "Differiti";
 $h1Title = "Servizio Tecnico";
 $h1HyperLink = "";
-$h2Title = "Elenco provvedimenti correttivi differiti";
+$h2Title = "Gestione dei provvedimenti correttivi differiti";
 $h2HyperLink = "differiti-home.php#table";
 
 include("common-open-page.inc.php");
@@ -65,6 +65,11 @@ function stampaIntestazioneTabella($R, $admin)
 
 function stampaDatiTabella($R, $admin, $dateColumns, $textColumns)
 {
+    // devel only
+    $AP = '1';
+    $PR = '20';
+    $CH = '36';
+
     for ($i = 0; $i < mysqli_num_rows($R); $i++) {
         echo "\n    <tr>";
         $row = mysqli_fetch_row($R);
@@ -83,7 +88,7 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns)
         }
         // in caso di amministratore, si aggiunge la colonna con i link per la modifica
         if($admin)
-            echo "\n      <td><img src=\"edit_icon_mini.png\" alt=\"icona_edita\" /></td>\n";
+            echo "\n      <td><a href=\"differiti-modifica.php?AP=$AP&PR=$PR&CH=$CH\"><img src=\"edit_icon_mini.png\" alt=\"icona_edita\" /></a></td>\n";
         echo "    </tr>\n";
     }
     return;
