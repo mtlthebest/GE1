@@ -5,6 +5,9 @@ function queryAndCaptionFactory($chopper, $closed, $type, $request)
     // AGGIUNTA APICI PER CORRETTO FUNZIONAMENTO QUERY SQL
     if ($chopper != "")
         $chopper = "'$chopper'";
+   
+    // adminMode = $_POST['...']; // ancora da sviluppare sistema per determinare se l'utente è admin o in sola lettura
+    $adminMode = TRUE;
     
     // INIZIALIZZAZIONE VARIABILI PER COSTRUZIONE QUERY SQL E CAPTION
     $caption = "";
@@ -66,6 +69,10 @@ function queryAndCaptionFactory($chopper, $closed, $type, $request)
         $fields  = "`numerofiancata` as Elicottero, `inconveniente`, `tipologia` as `tipo`, `datainconveniente` as `data AP`, `firmaap` as `firma AP`, `note`, `provvedimentocorrettivoadottato` as provvedimento, `durataoreuomo` as `ore/uomo`, `datachiusura` as `data CH`, `firmach` as `firma CH`";
     }
     
+    // selezione degli id AP, PR e CH nel caso di amministratore (dati necessari per individuare i record da modificare)
+    if($adminMode)
+        $fields .= ", `idapertura` as `AP`, `idnote` as `PR`, `idchiusura` as `CH`";
+
     $query = "SELECT $fields\nFROM view_differiti";
     if ($wheres != "") {
         $query .= "\nWHERE ($wheres)"; // nel caso di restrizioni aggiunge la clausola WHERE
