@@ -3,7 +3,11 @@ echo "  <p class=\"cr\">".htmlentities("©")." 2013 MtL</p>\n";
 $heading = <<<HEADING
 
   <div style="text-align: center">
+<<<<<<< HEAD
     <a href="index.php"><img src="logo_ge1.jpg" alt=
+=======
+    <a href="index.php"><img src="GRUPELICOT%20UNO.jpg" alt=
+>>>>>>> 39a61968df6da247ddca23614044ef7907b39375
     "Primo Gruppo Elicotteri" /></a>
     <img src="website_under_construction.png" alt=
     "under construction" />

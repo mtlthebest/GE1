@@ -62,6 +62,7 @@ margin-bottom:15px
 
 td {
 text-align:center;
+<<<<<<< HEAD
 border:solid gray 1px;
 padding: 1px;
 padding-left: 4px;
@@ -73,6 +74,13 @@ border:solid gray 1px;
 padding: 1px;
 padding-left: 4px;
 padding-right: 4px
+=======
+border:solid gray 1px
+}
+
+th {
+border:solid gray 1px
+>>>>>>> 39a61968df6da247ddca23614044ef7907b39375
 }
 
 .yellowCell {
