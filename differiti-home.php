@@ -34,10 +34,7 @@ scriviHeaderPrincipale();
 scriviASW($set);
 scriviEarlyWarning($set);
 scriviUtility($set);
-<<<<<<< HEAD
 scriviUtility16($set);
-=======
->>>>>>> 39a61968df6da247ddca23614044ef7907b39375
 scriviASH($set);
 scriviTutte($set);
 endTable();
@@ -45,11 +42,7 @@ endTable();
 function scriviHeaderPrincipale() {
 	$tableHeader = <<<TABLEHEADER
     <tr>
-<<<<<<< HEAD
       <th colspan="2" rowspan="2">AgustaWestland EH-101</th>
-=======
-      <th colspan="2" rowspan="2">Elicottero AgustaWestland EH-101</th>
->>>>>>> 39a61968df6da247ddca23614044ef7907b39375
 
       <th rowspan="2" style="color: red">Apri differito</th>
 
@@ -89,24 +82,16 @@ function scriviEarlyWarning($R) {
 }
 
 function scriviUtility($R) {
-<<<<<<< HEAD
 	scriviCella("Utility", 3);
-=======
-	scriviCella("Utility", 4);
->>>>>>> 39a61968df6da247ddca23614044ef7907b39375
 	rowFactory("2-13", "5", $R);
 	initRow();
 	rowFactory("2-14", "6", $R);
 	initRow();
 	rowFactory("2-15", "7", $R);
-<<<<<<< HEAD
 }
 
 function scriviUtility16($R) {
 	scriviCella("Utility/ASH*", 1);
-=======
-	initRow();
->>>>>>> 39a61968df6da247ddca23614044ef7907b39375
 	rowFactory("2-16", "8", $R);
 }
 
