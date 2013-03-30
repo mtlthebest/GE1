@@ -8,7 +8,7 @@ function singoloStampaTabella($res, $capt) {
     $colonneTesto = individuaTesto($res); // un array indica quali colonne contengono molto testo per la formattazione
     singoloStampaDatiTabella($res, $colonneDate, $colonneTesto);
     echo "  </table>\n";
-    echo "\n  <p style=\"text-align: center; font-size: 75%; color: gray\">conteggio righe: ".mysqli_num_rows($res)."</p>";
+    echo "\n<p></p>\n";
     return;
 }
 

@@ -41,7 +41,7 @@ endTable();
 function scriviHeaderPrincipale() {
 	$tableHeader = <<<TABLEHEADER
     <tr>
-      <th colspan="2" rowspan="2">Elicottero</th>
+      <th colspan="2" rowspan="2">Elicottero AgustaWestland EH-101</th>
 
       <th rowspan="2" style="color: red">Apri differito</th>
 
@@ -51,13 +51,13 @@ function scriviHeaderPrincipale() {
     </tr>
 
     <tr>
-      <td>Inconvenienti</td>
+      <td class="larghezzaFissa">Inconvenienti</td>
 
-      <td>Ispezioni</td>
+      <td class="larghezzaFissa">Ispezioni</td>
 
-      <td>Sostituzioni</td>
+      <td class="larghezzaFissa">Sostituzioni</td>
 
-      <td>Altri</td>
+      <td class="larghezzaFissa">Altri</td>
 
       <th>Totale ancora aperti</th>
     </tr>
@@ -67,21 +67,21 @@ TABLEHEADER;
 }
 
 function scriviASW($R) {
-	scriviCella("A", 2);
+	scriviCella("ASW-ASuW", 2);
 	rowFactory("2-01", "1", $R);
 	initRow();
 	rowFactory("2-08", "2", $R);
 }
 
 function scriviEarlyWarning($R) {
-	scriviCella("E", 2);
+	scriviCella("HEW", 2);
 	rowFactory("2-09", "3", $R);
 	initRow();
 	rowFactory("2-12", "4", $R);
 }
 
 function scriviUtility($R) {
-	scriviCella("U", 4);
+	scriviCella("Utility", 4);
 	rowFactory("2-13", "5", $R);
 	initRow();
 	rowFactory("2-14", "6", $R);
@@ -92,7 +92,7 @@ function scriviUtility($R) {
 }
 
 function scriviASH($R) {
-	scriviCella("S", 4);
+	scriviCella("ASH", 4);
 	rowFactory("2-18", "9", $R);
 	initRow();
 	rowFactory("2-19", "10", $R);

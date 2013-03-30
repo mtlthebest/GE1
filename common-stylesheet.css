@@ -17,6 +17,10 @@ border:solid #000 1px
     font-style: normal;
 }
 
+.larghezzaFissa {
+width: 100px
+}
+
 .txtArea {
 height:100px;
 width:800px;
@@ -29,6 +33,13 @@ form {
 text-align:center;
 margin-left:auto;
 margin-right:auto
+}
+
+.modifyDifferiti {
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+width:400px
 }
 
 img {

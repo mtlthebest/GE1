@@ -80,31 +80,41 @@ function determineFormButtons($AP, $PR, $CH) { // riceve come parametri gli ID d
 function buildForm($buttons) {
 
 	// inizio form
-	echo "<form action=\"differiti-modifica.php\" method=\"post\">\n";
-
-	echo "<fieldset>\n";
-	echo "<legend>Scelta della modifica da apportare al provvedimento correttivo differito</legend>\n";
+	echo "<form class=\"modifyDifferiti\" action=\"differiti-modifica.php\" method=\"post\">\n";
 
 	// radio button per la scelta dell'azione da eseguire
+
+	// fieldset AP
+	echo "<fieldset>\n";
+	echo "<legend>Apertura differito (AP)</legend>\n";
 	if($buttons['aperture']['modifica'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica apertura esistente</p>\n";
 	if($buttons['aperture']['annulla'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Annulla apertura esistente</p>\n";
+	echo "</fieldset>\n";	
+
+	echo "<fieldset>\n";
+	echo "<legend>Prosecuzione differito / annotazioni (PR)</legend>\n";
 	if($buttons['note']['crea'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Scrivi nuova annotazione</p>\n";
 	if($buttons['note']['modifica'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica annotazione esistente</p>\n";
 	if($buttons['note']['annulla'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Elimina annotazione esistente</p>\n";
+	echo "</fieldset>\n";	
+
+	echo "<fieldset>\n";
+	echo "<legend>Chiusura differito (CH)</legend>\n";
 	if($buttons['chiusure']['crea'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Chiudi differito</p>\n";
 	if($buttons['chiusure']['modifica'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica chiusura esistente</p>\n";
 	if($buttons['chiusure']['annulla'])
 		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Annulla chiusura esistente</p>\n";
+	echo "</fieldset>\n";	
 
 	// pulsante submit
-	echo "<p><input type=\"submit\" value=\"Procedi\" /></p>\n";
+	echo "<p><img src=\"edit_icon_mini_mirrored.png\" alt=\"\" /><input type=\"submit\" value=\"Procedi\" /></p>\n";
 	
 	// fine form
 	echo "</fieldset>\n";

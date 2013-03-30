@@ -19,9 +19,9 @@ function rowFactory($eli, $ideli, $result) {
     if ($eli == "tutte le fiancate")
         compileCell("td", "");
     else if ($totaleaperti == '0')
-        compileCell("th", "$eli"); // mostra cella con il solo numero di fiancata
+        compileCell("th", "<img src=\"EH-101_icon_mini.png\" alt=\"\" /> "."$eli"); // mostra cella con il solo numero di fiancata
     else {
-        compileYellowCell("td", $eli);
+        compileYellowCell("td", "<img src=\"EH-101_icon_mini.png\" alt=\"\" /> "."$eli");
     }
     
     // Compilazione casella #2: casella freccia caricamento differito -> ICONA, LINK, NON DISPONIBILE PER TUTTE LE FIANCATE
