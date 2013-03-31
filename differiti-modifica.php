@@ -38,13 +38,13 @@ WHERE
 ( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
 SINGLEQUERY;
 
-$caption = "Record che sarà interessato dalla modifica: (idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\").";
+$caption = "Record che sarà interessato dalla modifica: (idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
 $result = sendQuery($cxn, $query);
 
 include("differiti-display-single.inc.php"); // funzioni dedicate alla stampa della tabella per il singolo differito
 singoloStampaTabella($result, $caption);
 include("differiti-modifica-formBuilder.inc.php");
-buildForm(determineFormButtons($_GET['AP'], $_GET['PR'], $_GET['CH']));
+buildForm(determineFormButtons($_GET['AP'], $_GET['PR'], $_GET['CH']), $_GET['AP'], $_GET['PR'], $_GET['CH']);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

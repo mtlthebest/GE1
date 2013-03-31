@@ -77,40 +77,51 @@ function determineFormButtons($AP, $PR, $CH) { // riceve come parametri gli ID d
 
 } // end function
 
-function buildForm($buttons) {
+function buildForm($buttons, $AP, $PR, $CH) {
 
 	// inizio form
-	echo "<form class=\"modifyDifferiti\" action=\"differiti-modifica.php\" method=\"post\">\n";
+	echo "<form class=\"modifyDifferiti\" action=\"differiti-applica-modifiche_testDriver.php?AP=$AP&PR=$PR&CH=$CH\" method=\"post\">\n";
 
-	// radio button per la scelta dell'azione da eseguire
+	// radio button per la scelta dell'azione da eseguire, suddivisione in 8 casi:
+
+	// 1. - UPDATE-AP (modifica AP)
+	// 2. - DELETE-AP (elimina AP ed eventuali PR e CH)
+
+	// 3. - INSERT-PR (aggiunge una nota / PR)
+	// 4. - UPDATE-PR (edita una nota / PR esistente)
+	// 5. - DELETE-PR (elimina una nota / PR esistente)
+
+	// 6. - INSERT-CH (aggiunge una CH)
+	// 7. - UPDATE-CH (edita una CH esistente)
+	// 8. - DELETE-CH (elimina una CH esistente)
 
 	// fieldset AP
 	echo "<fieldset>\n";
 	echo "<legend>Apertura differito (AP)</legend>\n";
-	if($buttons['aperture']['modifica'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica apertura esistente</p>\n";
-	if($buttons['aperture']['annulla'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Annulla apertura esistente</p>\n";
+	if($buttons['aperture']['modifica']) // 1. - UPDATE-AP (modifica AP)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"UPDATE-AP\"/>Modifica apertura esistente</p>\n";
+	if($buttons['aperture']['annulla']) // 2. - DELETE-AP (elimina AP ed eventuali PR e CH)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"DELETE-AP\"/>Annulla apertura esistente (elimina anche eventuali PR e CH)</p>\n";
 	echo "</fieldset>\n";	
 
 	echo "<fieldset>\n";
 	echo "<legend>Prosecuzione differito / annotazioni (PR)</legend>\n";
-	if($buttons['note']['crea'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Scrivi nuova annotazione</p>\n";
-	if($buttons['note']['modifica'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica annotazione esistente</p>\n";
-	if($buttons['note']['annulla'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Elimina annotazione esistente</p>\n";
+	if($buttons['note']['crea']) // 3. - INSERT-PR (aggiunge una nota / PR)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"INSERT-PR\"/>Scrivi nuova annotazione</p>\n";
+	if($buttons['note']['modifica']) // 4. - UPDATE-PR (edita una nota / PR esistente)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"UPDATE-PR\"/>Modifica annotazione esistente</p>\n";
+	if($buttons['note']['annulla'])	// 5. - DELETE-PR (elimina una nota / PR esistente)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"DELETE-PR\"/>Elimina annotazione esistente</p>\n";
 	echo "</fieldset>\n";	
 
 	echo "<fieldset>\n";
 	echo "<legend>Chiusura differito (CH)</legend>\n";
-	if($buttons['chiusure']['crea'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Chiudi differito</p>\n";
-	if($buttons['chiusure']['modifica'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Modifica chiusura esistente</p>\n";
-	if($buttons['chiusure']['annulla'])
-		echo "<p><input type=\"radio\" name=\"action\" value=\"APmod\"/>Annulla chiusura esistente</p>\n";
+	if($buttons['chiusure']['crea']) // 6. - INSERT-CH (aggiunge una CH)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"INSERT-CH\"/>Chiudi differito</p>\n";
+	if($buttons['chiusure']['modifica']) // 7. - UPDATE-CH (edita una CH esistente)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"UPDATE-CH\"/>Modifica chiusura esistente</p>\n";
+	if($buttons['chiusure']['annulla']) // 8. - DELETE-CH (elimina una CH esistente)
+		echo "<p><input type=\"radio\" name=\"action\" value=\"DELETE-CH\"/>Annulla chiusura esistente</p>\n";
 	echo "</fieldset>\n";	
 
 	// pulsante submit
