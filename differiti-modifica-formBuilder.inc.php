@@ -114,7 +114,7 @@ function buildForm($buttons) {
 	echo "</fieldset>\n";	
 
 	// pulsante submit
-	echo "<p><img src=\"edit_icon_mini_mirrored.png\" alt=\"\" /><input type=\"submit\" value=\"Procedi\" /></p>\n";
+	echo "<p><img src=\"edit_icon_lefthanded.png\" alt=\"\" /><input type=\"submit\" value=\"Procedi\" /></p>\n";
 	
 	// fine form
 	echo "</fieldset>\n";

@@ -101,7 +101,7 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns)
         }
         // in caso di amministratore, si aggiunge la colonna con i link per la modifica
         if($admin)
-            echo "\n      <td><a href=\"$editLink\"><img src=\"edit_icon_mini.png\" alt=\"icona_edita\" /></a></td>\n";
+            echo "\n      <td><a href=\"$editLink\"><img src=\"edit_icon_righthanded.png\" alt=\"icona_edita\" /></a></td>\n";
         echo "    </tr>\n";
     }
     return;
