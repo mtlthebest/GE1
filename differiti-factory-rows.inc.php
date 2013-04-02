@@ -42,7 +42,7 @@ function rowFactory($eli, $ideli, $result) {
     else {
         $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
         $tipo   = "1"; // idem
-        $cell   = prepareFetchHyperlink($eli, $chiusi, $tipo, $inconvenienti);
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $inconvenienti);
         compileCell("td", $cell);
     }
     
@@ -52,7 +52,7 @@ function rowFactory($eli, $ideli, $result) {
     else {
         $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
         $tipo   = "2"; // idem
-        $cell   = prepareFetchHyperlink($eli, $chiusi, $tipo, $ispezioni);
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $ispezioni);
         compileCell("td", $cell);
     }
     
@@ -62,7 +62,7 @@ function rowFactory($eli, $ideli, $result) {
     else {
         $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
         $tipo   = "3"; // idem
-        $cell   = prepareFetchHyperlink($eli, $chiusi, $tipo, $sostituzioni);
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $sostituzioni);
         compileCell("td", $cell);
     }
     // Compilazione casella #6: Altri -> LINK
@@ -71,7 +71,7 @@ function rowFactory($eli, $ideli, $result) {
     else {
         $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
         $tipo   = "4"; // idem
-        $cell   = prepareFetchHyperlink($eli, $chiusi, $tipo, $altri);
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $altri);
         compileCell("td", $cell);
     }
     
@@ -81,7 +81,7 @@ function rowFactory($eli, $ideli, $result) {
     else {
         $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
         $tipo   = ""; // idem
-        $cell   = prepareFetchHyperlink($eli, $chiusi, $tipo, $totaleaperti);
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $totaleaperti);
         if ($eli == "tutte le fiancate")
             compileCell("td", $cell);
         else
@@ -93,7 +93,7 @@ function rowFactory($eli, $ideli, $result) {
     $tipo      = ""; // idem
     $imageFile = "search_lens_mini.png";
     $imageAlt  = "consulta";
-    $cell      = prepareFetchHyperlink($eli, $chiusi, $tipo, compileImage($imageFile, $imageAlt));
+    $cell      = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, compileImage($imageFile, $imageAlt));
     compileCell("td", $cell);
     
     // chiude la riga della tabella
@@ -113,11 +113,13 @@ function compileYellowCell($type, $x) {
     return;
 }
 
-function prepareFetchHyperlink($eli, $closed, $type, $value) {
-    if ($eli == "tutte le fiancate")
+function prepareFetchHyperlink($ideli, $eli, $closed, $type, $value) {
+    if ($eli == "tutte le fiancate") {
         $eli = "";
+        $ideli = "";
+    }
     $and = htmlentities("&");
-    return '<a href="differiti-display.php?eli=' . $eli . $and . 'chiusi=' . $closed . $and . 'tipo=' . $type . '">' . $value . '</a>';
+    return '<a href="differiti-display.php?ideli=' . $ideli . $and . 'eli=' . $eli . $and . 'chiusi=' . $closed . $and . 'tipo=' . $type . '">' . $value . '</a>';
 }
 
 function compileImage($file, $alt) {
@@ -125,8 +127,9 @@ function compileImage($file, $alt) {
 }
 
 function prepareUploadHyperlink($chopper, $chopperID, $icon) {
-    $and = htmlentities("&");
-    return '<a href="differiti-form-upload.php?eli=' . $chopper . $and . 'ideli=' . $chopperID . '">' . $icon . '</a>';
+    $and = htmlentities("&"); // per compatibilità con form-editor.php sono passati anche i parametri vuoti
+    return '<a href="differiti-editor.php?AP=' . $and . 'PR=' . $and . 'CH='.$and . 'action=INSERT' . $and . 'table=AP' .
+        $and . 'eli=' . $chopper . $and . 'ideli=' . $chopperID . '">' . $icon . '</a>';
 }
 
 ?>

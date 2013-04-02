@@ -77,10 +77,10 @@ function determineFormButtons($AP, $PR, $CH) { // riceve come parametri gli ID d
 
 } // end function
 
-function buildForm($buttons, $AP, $PR, $CH) {
+function buildForm($buttons, $fiancata, $idEli, $AP, $PR, $CH) {
 
 	// inizio form
-	echo "<form class=\"modifyDifferiti\" action=\"differiti-applica-modifiche_testDriver.php?AP=$AP&PR=$PR&CH=$CH\" method=\"post\">\n";
+	echo "<form class=\"modifyDifferiti\" action=\"differiti-editor.php?eli=$fiancata&ideli=$idEli&AP=$AP&PR=$PR&CH=$CH\" method=\"post\">\n";
 
 	// radio button per la scelta dell'azione da eseguire, suddivisione in 8 casi:
 

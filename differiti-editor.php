@@ -21,6 +21,29 @@ include("common-open-page.inc.php");
 // $_GET['PR']:     id relativo alla prosecuzione (PR) del differito
 // $_GET['CH']:     id relativo alla chiusura (CH) del differito
 
+if (!isset($_GET['table'])) // ottiene $table da GET o POST a seconda dell'URL di provenienza
+	$table = substr($_POST['action'], -2);
+else
+	$table = $_GET['table'];
+
+if (!isset($_GET['action'])) // ottiene $action da GET o POST a seconda dell'URL di provenienza
+	$action = substr_replace($_POST['action'], "", -3);
+else
+	$action = $_GET['action'];
+
+// debug variabili
+echo "<p>Debug variabili:</p>\n";
+echo "<ul>";
+echo "<li>eli: {$_GET['eli']}</li>\n";
+echo "<li>ideli: {$_GET['ideli']}</li>\n";
+echo "<li>action: $action</li>\n";
+echo "<li>table: $table</li>\n";
+echo "<li>AP: {$_GET['AP']}</li>\n";
+echo "<li>PR: {$_GET['PR']}</li>\n";
+echo "<li>CH: {$_GET['CH']}</li>\n";
+echo "</ul>";
+// fine debug
+
 # SUDDIVISIONE IN CASI (devono essere tutti gestiti dal programma .php):
 
 // 1. - INSERT-AP
@@ -37,10 +60,9 @@ include("common-open-page.inc.php");
 
 # Step A. - CONNESSIONE AL DATABASE MySQL (comune a tutti i casi)
 $cxn = connectToDatabase($host, $user, $password, $database);
-echo "<p>Connessione al db effettuata.</p>";
 
-# Step B. - PRESENTAZIONE DEL RECORD DA EDITARE (casi interessati solo UPDATE o DELETE: 4, 5, 6, 7, 8 e 9)
-if ($_GET['action'] == "UPDATE" || $_GET['action'] == "DELETE") {
+# Step B. - PRESENTAZIONE DEL RECORD DA EDITARE (casi interessati: tutti tranne INSERT-AP)
+if ( !($action == "INSERT" && $table == "AP") ) {
 	// visualizzazione tabella
 	// sono necessari: $caption, $query
 	if ($_GET['AP'] == "")
@@ -73,24 +95,24 @@ SINGLEQUERY;
 }
 
 # Step C. - PRESENTAZIONE DEL FORM DI CARICAMENTO O MODIFICA
-echo "<form class=\"modifyDifferiti\" action=\"differiti-esegui-query.php?" . // pagina .php richiamata dal form e CSS
-	"eli={$_GET['eli']}&ideli={$_GET['ideli']}&table={$_GET['table']}&action={$_GET['action']}&" . // parametri
+echo "<form class=\"editDifferiti\" accept-charset=\"UTF-8\" action=\"differiti-esegui-query.php?" . // pagina .php richiamata dal form e CSS
+	"eli={$_GET['eli']}&ideli={$_GET['ideli']}&table=$table&action=$action&" . // parametri
 	"AP={$_GET['AP']}&PR={$_GET['PR']}&CH={$_GET['CH']}" . // parametri relativi agli ID dei record nelle tabelle
 	"\" method=\"post\">\n"; // metodo utilizzato: POST
 
 // impostazione fieldset e legenda
 echo "<fieldset>\n";
-$legend = legendFactory($_GET['action'], $_GET['eli'], $_GET['table']);
+$legend = legendFactory($action, $_GET['eli'], $table);
 echo "<legend>$legend</legend>\n";
 
 // campi del form per l'inserimento o la modifica dei dati
 include("differiti-editor-form-factory.inc.php");
-echo editorFormFactory($cxn, $_GET['eli'], $_GET['ideli'], $_GET['action'], $_GET['table'], $_GET['AP'], $_GET['PR'], $_GET['CH']); // la connessione $cxn è necessaria per la costruzione dei menu a tendina del form
+echo editorFormFactory($cxn, $_GET['eli'], $_GET['ideli'], $action, $table, $_GET['AP'], $_GET['PR'], $_GET['CH']); // la connessione $cxn è necessaria per la costruzione dei menu a tendina del form
 
 # Step D. - PULSANTE DI CONFERMA (fa parte del form)
-if ($_GET['action'] == "INSERT") $butt = "l'inserimento del nuovo record";
-	else if ($_GET['action'] == "UPDATE") $butt = "l'aggiornamento del record";
-	else if ($_GET['action'] == "DELETE") $butt = "l'eliminazione del record";
+if ($action == "INSERT") $butt = "l'inserimento del nuovo record";
+	else if ($action == "UPDATE") $butt = "l'aggiornamento del record";
+	else if ($action == "DELETE") $butt = "l'eliminazione del record";
 	else {
 		echo "<p>Errore! Problema creazione pulsante di conferma per il form di inserimento/modifica dati.</p>\n";
 		$butt = "???";
@@ -104,7 +126,6 @@ echo "</form>\n";
 
 # Step F. - CHIUSURA DELLA CONNESSIONE AL DATABASE MySQL
 mysqli_close($cxn);
-echo "<p>Connessione al db chiusa.</p>";
 
 function legendFactory($azione, $fiancata, $tabella) {
 	if ($azione == "INSERT") $act = "Inserimento di un record nel";

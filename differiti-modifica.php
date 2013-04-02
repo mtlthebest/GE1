@@ -12,6 +12,19 @@ include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
+// debug variabili
+echo "<p>Debug variabili:</p>\n";
+echo "<ul>";
+echo "<li>eli: {$_GET['eli']}</li>\n";
+echo "<li>ideli: {$_GET['ideli']}</li>\n";
+// echo "<li>action: $action</li>\n";
+// echo "<li>table: $table</li>\n";
+echo "<li>AP: {$_GET['AP']}</li>\n";
+echo "<li>PR: {$_GET['PR']}</li>\n";
+echo "<li>CH: {$_GET['CH']}</li>\n";
+echo "</ul>";
+// fine debug
+
 if ($_GET['AP'] == "")
 	$AP = "is null";
 else
@@ -44,7 +57,7 @@ $result = sendQuery($cxn, $query);
 include("differiti-display-single.inc.php"); // funzioni dedicate alla stampa della tabella per il singolo differito
 singoloStampaTabella($result, $caption);
 include("differiti-modifica-formBuilder.inc.php");
-buildForm(determineFormButtons($_GET['AP'], $_GET['PR'], $_GET['CH']), $_GET['AP'], $_GET['PR'], $_GET['CH']);
+buildForm(determineFormButtons($_GET['AP'], $_GET['PR'], $_GET['CH']), $_GET['eli'], $_GET['ideli'], $_GET['AP'], $_GET['PR'], $_GET['CH']);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

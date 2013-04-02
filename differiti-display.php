@@ -14,8 +14,8 @@ include("common-open-page.inc.php");
 
 // costruzione query e caption specifiche
 include("differiti-factory-queriesAndCaptions.inc.php");
-$query   = queryAndCaptionFactory($_GET["eli"], $_GET["chiusi"], $_GET["tipo"], "query");
-$caption = queryAndCaptionFactory($_GET["eli"], $_GET["chiusi"], $_GET["tipo"], "caption");
+$query   = queryAndCaptionFactory($_GET['eli'], $_GET['chiusi'], $_GET['tipo'], "query");
+$caption = queryAndCaptionFactory($_GET['eli'], $_GET['chiusi'], $_GET['tipo'], "caption");
 // adminMode = $_POST['...']; // ancora da sviluppare sistema per determinare se l'utente è admin o in sola lettura
 $adminMode = TRUE;
 
@@ -33,7 +33,7 @@ function stampaTabella($R, $capt, $isAdmin)
     $colonneDate  = individuaDate($R); // un array indica quali colonne contengono date per la successiva formattazione
     $colonneTesto = individuaTesto($R); // un array indica quali colonne contengono molto testo per la formattazione
     $colonneAP_PR_CH = individuaAP_PR_CH($R); // un array indica quali colonne contengono gli id di AP, PR e CH
-    stampaDatiTabella($R, $isAdmin, $colonneDate, $colonneTesto, $colonneAP_PR_CH);
+    stampaDatiTabella($R, $isAdmin, $colonneDate, $colonneTesto, $colonneAP_PR_CH, $_GET['eli'], $_GET['ideli']);
     echo "  </table>\n";
     echo "\n  <p style=\"text-align: center; font-size: 75%; color: gray\">conteggio righe: ".mysqli_num_rows($R)."</p>";
     return;
@@ -66,7 +66,7 @@ function stampaIntestazioneTabella($R, $admin)
     return;
 }
 
-function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns)
+function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $eli, $ideli)
 {
     mysqli_data_seek($R, 0); // reset posizione pointer per la variabile $R, nel caso fosse già stata impiegata
 
@@ -76,7 +76,9 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns)
         $editLink = "differiti-modifica.php?AP=";
         $editLink .= $row["AP"]."&PR=";
         $editLink .= $row["PR"]."&CH=";
-        $editLink .= $row["CH"];
+        $editLink .= $row["CH"]."&eli=";
+	$editLink .= $eli."&ideli=";
+        $editLink .= $ideli;
 
         echo "\n    <tr>";
 
