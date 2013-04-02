@@ -1,21 +1,24 @@
 <?php
 
 function connectToDatabase($H, $U, $P, $D) {
-	return mysqli_connect($H, $U, $P, $D);	
+	$conn = mysqli_connect($H, $U, $P, $D) or die("\n<p>connectToDatabase(): Errore di connessione.</p>\n");
+	return $conn;	
 }
 
 function sendQuery($C, $Q) {
-	mysqli_query($C, "SET NAMES utf8"); // imposta la connessione per utilizzare la codifica UTF-8
-	return mysqli_query($C, $Q);
+	mysqli_query($C, "SET NAMES utf8") // imposta la connessione per utilizzare la codifica UTF-8
+		or die("\n<p>sendQuery(): Errore durante l'esecuzione della query (SET NAMES).</p>\n");
+	$res = mysqli_query($C, $Q) or die("\n<p>sendQuery(): Errore durante l'esecuzione della query.</p>\n");
+	return $res;
 }
 
-function fixEncoding($in_str) { // temporaneamente disabilitato per debug codifica UTF-8
+/* function fixEncoding($in_str) { // temporaneamente disabilitato per debug codifica UTF-8
 	//$cur_encoding = mb_detect_encoding($in_str);
 	//if ($cur_encoding == "UTF-8" && mb_check_encoding($in_str, "UTF-8"))
 		return $in_str;
 	//else
 	//	return utf8_encode($in_str);
-}
+} */
 
 function reverseEncoding($in_str) {
 	return utf8_decode($in_str);
