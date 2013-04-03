@@ -107,7 +107,8 @@ echo "<legend>$legend</legend>\n";
 
 // campi del form per l'inserimento o la modifica dei dati
 include("differiti-editor-form-factory.inc.php");
-echo editorFormFactory($cxn, $_GET['eli'], $_GET['ideli'], $action, $table, $_GET['AP'], $_GET['PR'], $_GET['CH']); // la connessione $cxn è necessaria per la costruzione dei menu a tendina del form
+// la connessione $cxn è necessaria per la costruzione dei menu a tendina del form
+echo editorFormFactory($cxn, $_GET['eli'], $_GET['ideli'], $action, $table, $_GET['AP'], $_GET['PR'], $_GET['CH']);
 
 # Step D. - PULSANTE DI CONFERMA (fa parte del form)
 if ($action == "INSERT") $butt = "l'inserimento del nuovo record";

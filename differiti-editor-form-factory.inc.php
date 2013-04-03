@@ -62,7 +62,7 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 		$insertForm = "";	
 
 		// box testo annotazioni differito
-		$insertForm .= "\n    <p><textarea class='txtArea' name='annotazioni'>" .
+		$insertForm .= "\n    <p><textarea class='txtArea' name='note'>" .
 			"Inserire qui una nota o una prosecuzione (PR) del provvedimento correttivo differito...</textarea></p>";
 
 		return $insertForm;

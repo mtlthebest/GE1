@@ -24,4 +24,11 @@ function reverseEncoding($in_str) {
 	return utf8_decode($in_str);
 }
 
+function cleanInput($connection, $inputText) {
+	$string = ucfirst(trim(strip_tags($inputText))); // rimuove codice malevolo, rimuove spazi superflui prima e dopo, prima lettera maiuscola
+	if (substr($string, -1) != ".") // controlla se l'ultimo carattere è un punto
+		$string .= "."; // chiude il testo con un punto se mancante
+	return mysqli_real_escape_string($connection, $string);
+}
+
 ?>
