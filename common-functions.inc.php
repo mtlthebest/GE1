@@ -28,6 +28,8 @@ function cleanInput($connection, $inputText) {
 	$string = ucfirst(trim(strip_tags($inputText))); // rimuove codice malevolo, rimuove spazi superflui prima e dopo, prima lettera maiuscola
 	if (substr($string, -1) != ".") // controlla se l'ultimo carattere è un punto
 		$string .= "."; // chiude il testo con un punto se mancante
+	if (substr($string, -2) == "..") // controlla se vi sono due punti alla fine del testo
+		$string = substr($string, 0, -1); // rimuove l'eventuale doppio punto
 	return mysqli_real_escape_string($connection, $string);
 }
 
