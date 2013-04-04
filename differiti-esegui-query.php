@@ -54,12 +54,18 @@ if ( !($action == "INSERT" && $table == "AP") ) {
 echo "<p>3. - Visualizzato record pre-modifica.</p>\n";
 
 # 4. - Creazione della query utilizzando i dati forniti da $_GET e $_POST
-if ($action == 'INSERT')
+if ($action == 'INSERT') {
 	$query = insertQueryFactory($cxn, $eli, $ideli, $table, $AP, $PR, $CH, $_POST);
-else if ($action == 'UPDATE')
+	$caption = "Record dopo l'inserimento:";
+}
+else if ($action == 'UPDATE') {
 	$query = updateQueryFactory($cxn, $eli, $ideli, $table, $AP, $PR, $CH, $_POST);
-else if ($action == 'DELETE')
+	$caption = "Record dopo la modifica:";
+}
+else if ($action == 'DELETE') {
 	$query = deleteQueryFactory($cxn, $eli, $ideli, $table, $AP, $PR, $CH, $_POST);
+	$caption = "Record dopo l'eliminazione:";
+}
 else {
 	$query = "";
 	echo "<p>Errore durante la costruzione della query SQL.</p>\n";
@@ -72,11 +78,14 @@ echo "<p style=\"font-family: monospace; text-align: center\">$query;</p>";
 
 # 6. - Esecuzione della query SQL
 $executeQueryResult = sendQuery($cxn, $query);
-echo "<p>6. - Query SQL eseguita.</p>\n";
+$id = mysqli_insert_id($cxn);
+echo "<p>6. - Query SQL eseguita. L'id auto-increment è: $id.</p>\n";
 
 # 7. - Visualizzazione record post-modifica
+if ($AP == "") // nel caso di nuova apertura, determina il numero AP con l'id auto-increment della query eseguita
+	$AP = $id;
 $postmodQuery = viewSingleRecordQueryFactory($AP);
-$caption = "Record dopo la modifica:";
+
 $postmodQueryResult = sendQuery($cxn, $postmodQuery);
 singoloStampaTabella($postmodQueryResult, $caption);
 echo "<p>7. - Visualizzato record post-modifica.</p>\n";

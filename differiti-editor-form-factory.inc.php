@@ -25,11 +25,11 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 
 		// box testo differito
 		$insertForm = "";	
-		$insertForm .= "\n    <p><textarea class='txtArea' name='differito'>" .
+		$insertForm .= "\n    <p><textarea class='txtArea' name='inconveniente'>" .
 			"Inserire qui la descrizione del provvedimento correttivo differito...</textarea></p>";
 	
 		// selezione tipologia differito
-		$insertForm .= "    <p><select name=\"tipo\">";
+		$insertForm .= "    <p><select name=\"tipologia\">";
 		while($row = mysqli_fetch_assoc($resultTipo)) {
 			$preselection = "";
 			extract($row);
@@ -40,10 +40,11 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 		$insertForm .= "</select></p>";
 	
 		// selezione data (utilizza JavaScript)
-		$insertForm .= "    <p><input type='text' value='yyyy-mm-dd' name='data' /></p>";
-	
+		$dataOdierna = oggi(); // di default fa trovare la data di oggi nel campo
+		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='dataInconveniente' name='dataInconveniente' /></p>";
+
 		// selezione firma apertura
-		$insertForm .= "    <p><select name=\"firma\">";
+		$insertForm .= "    <p><select name=\"firmaApertura\">";
 		while($row = mysqli_fetch_assoc($resultPersonale)) {
 			$preselection = "";
 			extract($row);

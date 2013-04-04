@@ -33,4 +33,14 @@ function cleanInput($connection, $inputText) {
 	return mysqli_real_escape_string($connection, $string);
 }
 
+function oggi() {
+	return date('d/m/Y');
+}
+
+function cleanDate($stringaData) {
+	// esempio di stringa attesa: '20/04/2012'
+	$stringaData = str_replace('/', '-', $stringaData);
+	return date('Y-m-d', strtotime($stringaData)); // output: formato data compatibile MySQL (2012-04-20)
+}
+
 ?>

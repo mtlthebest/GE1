@@ -6,6 +6,15 @@ function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $
 
 	if($tabella == "AP") {
 		// ESEMPIO INSERT-AP valido:
+		// INSERT INTO `differiti`.`table_differitiaperture` (`id`, `elicottero`, `inconveniente`, `tipologia`, `dataInconveniente`,
+		// 	`firmaApertura`) VALUES (NULL, '7', 'Test di inserimento', '3', '2013-04-04', '13');
+		$dataInconveniente = cleanDate($post_array['dataInconveniente']); // conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+		$inconveniente = cleanInput($conn, $post_array['inconveniente']); // pulizia e preparazione dati
+		$insertAPQuery = "INSERT INTO `differiti`.`table_differitiaperture` (`id`, `elicottero`, `inconveniente`, " .
+			"`tipologia`, `dataInconveniente`, `firmaApertura`) VALUES (NULL, ";
+		$insertAPQuery .= "'$ideli', '$inconveniente', '{$post_array['tipologia']}', '$dataInconveniente', " .
+			"'{$post_array['firmaApertura']}')";
+		return $insertAPQuery;
 	}
 
 	else if($tabella == "PR") {

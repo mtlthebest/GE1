@@ -9,6 +9,12 @@ $header = <<<HEADER
   "image/x-icon" />
   <link rel="stylesheet" type="text/css" href=
   "common-stylesheet.css" />
+  <script type="text/javascript" src="prototype.js">
+  </script>
+  <script type="text/javascript" src="scriptaculous.js">
+  </script>
+  <script type="text/javascript" src="datepicker.js">
+  </script>
 
 
 HEADER;

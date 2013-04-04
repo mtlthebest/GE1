@@ -124,6 +124,19 @@ echo "<p><img src=\"edit_icon_lefthanded.png\" alt=\"\" /><input type=\"submit\"
 // chiusura fieldset
 echo "</fieldset>\n";
 echo "</form>\n";
+		$javascript = <<<JAVASCRIPT
+<script type="text/javascript">
+//<![CDATA[
+    /*<[CDATA[*/
+     var dpck   = new DatePicker({
+      relative  : 'dataInconveniente',
+      language  : 'it'
+      });
+    /*]]>*/
+//]]>
+</script>
+JAVASCRIPT;
+echo $javascript; // implementazione calendario
 
 # Step F. - CHIUSURA DELLA CONNESSIONE AL DATABASE MySQL
 mysqli_close($cxn);
