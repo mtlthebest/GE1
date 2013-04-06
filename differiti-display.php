@@ -78,7 +78,7 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $
         $editLink .= $row["PR"]."&CH=";
         $editLink .= $row["CH"]."&eli=";
 	$editLink .= $eli."&ideli=";
-        $editLink .= $ideli;
+        $editLink .= $ideli."#caption";
 
         echo "\n    <tr>";
 

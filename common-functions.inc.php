@@ -28,7 +28,7 @@ function cleanInput($connection, $inputText) {
 	$string = ucfirst(trim(strip_tags($inputText))); // rimuove codice malevolo, rimuove spazi superflui prima e dopo, prima lettera maiuscola
 	if (substr($string, -1) != ".") // controlla se l'ultimo carattere è un punto
 		$string .= "."; // chiude il testo con un punto se mancante
-	if (substr($string, -2) == "..") // controlla se vi sono due punti alla fine del testo
+	if (substr($string, -2) == ".." && substr($string, -3) != "...") // controlla se vi sono due punti alla fine del testo
 		$string = substr($string, 0, -1); // rimuove l'eventuale doppio punto
 	return mysqli_real_escape_string($connection, $string);
 }
@@ -41,6 +41,16 @@ function cleanDate($stringaData) {
 	// esempio di stringa attesa: '20/04/2012'
 	$stringaData = str_replace('/', '-', $stringaData);
 	return date('Y-m-d', strtotime($stringaData)); // output: formato data compatibile MySQL (2012-04-20)
+}
+
+function cleanHour($stringaOra) {
+	// esempio di stringa attesa: ' 21,0'
+	$stringaOra = trim(strip_tags($stringaOra));
+	$stringaOra = str_replace(',', '.', $stringaOra);
+	if(is_numeric($stringaOra)) // se il numero è valido, lo ritorna
+		return "'$stringaOra'"; // output: formato ora compatibile MySQL (21.0)
+	else
+		return "NULL"; // qui non è un "NULL" PHP, ma SQL
 }
 
 ?>

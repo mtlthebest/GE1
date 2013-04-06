@@ -51,7 +51,8 @@ WHERE
 ( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
 SINGLEQUERY;
 
-$caption = "Record che sarà interessato dalla modifica: (idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
+$caption = "<a name=\"caption\" id=\"caption\">Record che sarà interessato dalla modifica:" .
+		" (idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
 $result = sendQuery($cxn, $query);
 
 include("differiti-display-single.inc.php"); // funzioni dedicate alla stampa della tabella per il singolo differito

@@ -28,6 +28,15 @@ function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $
 
 	else if($tabella == "CH") {
 		// ESEMPIO INSERT-CH valido:
+		// INSERT INTO `differiti`.`table_differitichiusure` (`id`, `differito`, `provvedimentoCorrettivoAdottato`,
+		// 	`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, '12', 'TEST CHIUSURA', '11', '2013-04-04', '10');
+		$dataChiusura = cleanDate($post_array['dataChiusura']); // conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+		$durataOreUomo = cleanHour($post_array['durataOreUomo']);
+		$provvedimentoCorrettivoAdottato = cleanInput($conn, $post_array['provvedimentoCorrettivoAdottato']); // pulizia e preparazione dati
+		$insertCHQuery = "INSERT INTO `differiti`.`table_differitichiusure` (`id`, `differito`, `provvedimentoCorrettivoAdottato`, " .
+			"`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, ";
+		$insertCHQuery .= "'$ap', '$provvedimentoCorrettivoAdottato', $durataOreUomo, '$dataChiusura', '{$post_array['firmaChiusura']}')";
+		return $insertCHQuery;
 	}
 	
 	else {

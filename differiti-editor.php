@@ -87,7 +87,7 @@ FROM
 WHERE
 ( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
 SINGLEQUERY;
-	$caption = "Record che sarà interessato dalla modifica: " .
+	$caption = "<a name=\"caption\" id=\"caption\"></a>Record che sarà interessato dalla modifica: " .
 		"(idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
 	$result = sendQuery($cxn, $singleQuery);
 	include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
@@ -97,17 +97,17 @@ SINGLEQUERY;
 # Step C. - PRESENTAZIONE DEL FORM DI CARICAMENTO O MODIFICA
 echo "<form class=\"editDifferiti\" accept-charset=\"UTF-8\" action=\"differiti-esegui-query.php?" . // pagina .php richiamata dal form e CSS
 	"eli={$_GET['eli']}&ideli={$_GET['ideli']}&table=$table&action=$action&" . // parametri
-	"AP={$_GET['AP']}&PR={$_GET['PR']}&CH={$_GET['CH']}" . // parametri relativi agli ID dei record nelle tabelle
+	"AP={$_GET['AP']}&PR={$_GET['PR']}&CH={$_GET['CH']}#summary" . // parametri relativi agli ID dei record nelle tabelle
 	"\" method=\"post\">\n"; // metodo utilizzato: POST
 
 // impostazione fieldset e legenda
 echo "<fieldset>\n";
 $legend = legendFactory($action, $_GET['eli'], $table);
-echo "<legend>$legend</legend>\n";
+echo "<legend><a name=\"legend\" id=\"legend\">$legend</legend>\n";
 
 // campi del form per l'inserimento o la modifica dei dati
 include("differiti-editor-form-factory.inc.php");
-// la connessione $cxn è necessaria per la costruzione dei menu a tendina del form
+// la connessione $cxn è necessaria per la costruzione dei menù a tendina del form
 echo editorFormFactory($cxn, $_GET['eli'], $_GET['ideli'], $action, $table, $_GET['AP'], $_GET['PR'], $_GET['CH']);
 
 # Step D. - PULSANTE DI CONFERMA (fa parte del form)
@@ -124,12 +124,12 @@ echo "<p><img src=\"edit_icon_lefthanded.png\" alt=\"\" /><input type=\"submit\"
 // chiusura fieldset
 echo "</fieldset>\n";
 echo "</form>\n";
-		$javascript = <<<JAVASCRIPT
+$javascript = <<<JAVASCRIPT
 <script type="text/javascript">
 //<![CDATA[
     /*<[CDATA[*/
      var dpck   = new DatePicker({
-      relative  : 'dataInconveniente',
+      relative  : 'data',
       language  : 'it'
       });
     /*]]>*/

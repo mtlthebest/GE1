@@ -13,10 +13,10 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 
 	} // fine caso DELETE-AP, DELETE-PR, DELETE-CH
 	
-	else if ($action == "INSERT" && $table == "AP") { // caso INSERT-AP
+	else if ($action == "INSERT" && $table == "AP") { // caso INSERT-AP --- OK, funzionante
 
 		// dichiarazione variabili per query SQL
-		$queryTipologieDifferito = "SELECT * FROM table_differititipologie";
+		$queryTipologieDifferito = "SELECT * FROM table_differititipologie ORDER BY ordine ASC";
 		$queryPersonale = "SELECT * FROM view_personale";
 
 		// esecuzione query per menu a tendina
@@ -41,7 +41,7 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 	
 		// selezione data (utilizza JavaScript)
 		$dataOdierna = oggi(); // di default fa trovare la data di oggi nel campo
-		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='dataInconveniente' name='dataInconveniente' /></p>";
+		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='data' name='dataInconveniente' /></p>";
 
 		// selezione firma apertura
 		$insertForm .= "    <p><select name=\"firmaApertura\">";
@@ -58,7 +58,7 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 
 	} // fine caso INSERT-AP
 
-	else if ($action == "INSERT" && $table == "PR") { // caso INSERT-PR
+	else if ($action == "INSERT" && $table == "PR") { // caso INSERT-PR --- OK, funzionante
 
 		$insertForm = "";	
 
@@ -72,6 +72,8 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 
 	else if ($action == "INSERT" && $table == "CH") { // caso INSERT-CH
 
+		$insertForm = ""; // inizializzazione form
+
 		// dichiarazione variabili per query SQL
 		$queryPersonale = "SELECT * FROM view_personale";
 
@@ -79,15 +81,18 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 		$resultPersonale = sendQuery($conn, $queryPersonale);
 
 		// box testo chiusura differito
-		$insertForm = "";	
-		$insertForm .= "\n    <p><textarea class='txtArea' name='differito'>" .
+		$insertForm .= "\n    <p><textarea class='txtArea' name='provvedimentoCorrettivoAdottato'>" .
 			"Inserire qui il provvedimento correttivo adottato per la chiusura (CH) del differito...</textarea></p>";
 	
+		// box testo durata in ore-uomo
+		$insertForm .= "\n    <p><input type='text' value='ore-uomo (ad es.: 2,25)' name='durataOreUomo'>";
+
 		// selezione data (utilizza JavaScript)
-		$insertForm .= "    <p><input type='text' value='yyyy-mm-dd' name='data' /></p>";
-	
+		$dataOdierna = oggi(); // di default fa trovare la data di oggi nel campo
+		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='data' name='dataChiusura' /></p>";
+
 		// selezione firma chiusura
-		$insertForm .= "    <p><select name=\"firma\">";
+		$insertForm .= "    <p><select name=\"firmaChiusura\">";
 		while($row = mysqli_fetch_assoc($resultPersonale)) {
 			$preselection = "";
 			extract($row);

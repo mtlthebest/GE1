@@ -129,7 +129,7 @@ function compileImage($file, $alt) {
 function prepareUploadHyperlink($chopper, $chopperID, $icon) {
     $and = htmlentities("&"); // per compatibilità con form-editor.php sono passati anche i parametri vuoti
     return '<a href="differiti-editor.php?AP=' . $and . 'PR=' . $and . 'CH='.$and . 'action=INSERT' . $and . 'table=AP' .
-        $and . 'eli=' . $chopper . $and . 'ideli=' . $chopperID . '">' . $icon . '</a>';
+        $and . 'eli=' . $chopper . $and . 'ideli=' . $chopperID . '#legend">' . $icon . '</a>';
 }
 
 ?>
