@@ -98,8 +98,8 @@ function buildForm($buttons, $fiancata, $idEli, $AP, $PR, $CH) {
 	// fieldset AP
 	echo "<fieldset>\n";
 	echo "<legend>Apertura differito (AP)</legend>\n";
-	if($buttons['aperture']['modifica']) // 1. - UPDATE-AP (modifica AP)
-		echo "<p><input type=\"radio\" name=\"action\" value=\"UPDATE-AP\"/>Modifica apertura esistente</p>\n";
+	if($buttons['aperture']['modifica']) // 1. - UPDATE-AP (modifica AP) | selezionato per default
+		echo "<p><input type=\"radio\" name=\"action\" checked=\"checked\" value=\"UPDATE-AP\"/>Modifica apertura esistente</p>\n";
 	if($buttons['aperture']['annulla']) // 2. - DELETE-AP (elimina AP ed eventuali PR e CH)
 		echo "<p><input type=\"radio\" name=\"action\" value=\"DELETE-AP\"/>Annulla apertura esistente (elimina anche eventuali PR e CH)</p>\n";
 	echo "</fieldset>\n";	

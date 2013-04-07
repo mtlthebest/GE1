@@ -59,7 +59,7 @@ echo "</ul>";
 // 9. - DELETE-CH
 
 # Step A. - CONNESSIONE AL DATABASE MySQL (comune a tutti i casi)
-$cxn = connectToDatabase($host, $user, $password, $database);
+$cxn = connectToDifferitiDatabase();
 
 # Step B. - PRESENTAZIONE DEL RECORD DA EDITARE (casi interessati: tutti tranne INSERT-AP)
 if ( !($action == "INSERT" && $table == "AP") ) {

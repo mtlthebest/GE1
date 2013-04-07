@@ -1,11 +1,13 @@
 <?php
 
-function deleteQueryBuilder($tableToUse, $idAP, $idPR, $idCH) {
+function deleteQueryBuilder($conn, $fiancata, $ideli, $tableToUse, $idAP, $idPR, $idCH, $post_array) {
 
 	/* esempio di query di eliminazione valida:
 	DELETE FROM `differiti`.`table_differitiannotazioni`
 	WHERE `table_differitiannotazioni`.`id` = 1 AND `table_differitiannotazioni`.`differito` = 7
 	*/
+
+	echo "<p>deleteQueryFactory: chiamata alla funzione.</p>\n";
 
 	$deletePRsql = "";
 	$deleteCHsql = "";
@@ -38,8 +40,10 @@ function deleteQueryBuilder($tableToUse, $idAP, $idPR, $idCH) {
 		$wheres = "`table_differitiaperture`.`id` = $idAP";
 	}
 
-	else
-		return "Errore! Controlla i parametri passati alla funzione deleteQueryBuilder()!";
+	else {
+		echo "<p>deleteQueryFactory(): errore durante la creazione della query.</p>\n";		
+		return "SELECT * from differiti_view"; // in caso di problemi restituisce una query "innocua" per non danneggiare il database
+	}
 
 	$sqlQ = "DELETE FROM $table WHERE $wheres;";
 

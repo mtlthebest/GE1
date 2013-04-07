@@ -19,7 +19,7 @@ $adminMode = TRUE;
 
 // connessione al database e ottenimento result-set
 $query = "SELECT * FROM view_differiti_menu";
-$cxn = connectToDatabase($host, $user, $password, $database);
+$cxn = connectToDifferitiDatabase();
 $set = sendQuery($cxn, $query);
 $caption = "<a name=\"table\" id=\"table\"></a>Punto di situazione - Provvedimenti correttivi differiti";
 if($adminMode)
@@ -184,6 +184,9 @@ function stampaIntroduzionePaginaWeb() {
 INTRO;
 	echo $intro;
 }
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

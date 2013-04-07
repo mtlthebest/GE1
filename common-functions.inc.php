@@ -1,7 +1,8 @@
 <?php
 
-function connectToDatabase($H, $U, $P, $D) {
-	$conn = mysqli_connect($H, $U, $P, $D) or die("\n<p>connectToDatabase(): Errore di connessione.</p>\n");
+function connectToDifferitiDatabase() {
+	include("common-set-connection.inc.php");
+	$conn = mysqli_connect($host, $user, $password, $database) or die("\n<p>connectToDifferitiDatabase(): Errore di connessione.</p>\n");
 	return $conn;	
 }
 

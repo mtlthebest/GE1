@@ -21,7 +21,7 @@ $AP = $_GET['AP'];         // id relativo all'apertura (AP) del differito
 $PR = $_GET['PR'];         // id relativo alla prosecuzione (PR) del differito
 $CH = $_GET['CH'];         // id relativo alla chiusura (CH) del differito
 
-// Debug variabili
+/* Debug variabili
 echo "<p>Debug variabili:</p>\n";
 echo "<ul>";
 echo "<li>eli: {$_GET['eli']}</li>\n";
@@ -32,16 +32,16 @@ echo "<li>AP: {$_GET['AP']}</li>\n";
 echo "<li>PR: {$_GET['PR']}</li>\n";
 echo "<li>CH: {$_GET['CH']}</li>\n";
 echo "</ul>";
-// Fine debug variabili
+*/ // Fine debug variabili
 
 include("differiti-editor-query-factory.inc.php");
 include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
 
 # 1. - Titolo dell'azione che si sta eseguendo (utilizza i dati forniti da $_GET e $_POST)
-echo "<a name=\"summary\" id=\"summary\"><p>1. - Titolo dell'azione che si sta compiendo: ...</p></a>\n";
+echo "<a name=\"summary\" id=\"summary\"><p>Elicottero $eli: richiesta operazione '$action' per la tabella $table (ID differito: $AP).</p></a>\n";
 
 # 2. - Connessione al database MySQL
-$cxn = connectToDatabase($host, $user, $password, $database);
+$cxn = connectToDifferitiDatabase();
 echo "<p>2. - Connessione al database MySQL eseguita.</p>\n";
 
 # 3. - Visualizzazione record pre-modifica
@@ -77,25 +77,28 @@ echo "<p>5. - Visualizzazione query SQL:</p>\n";
 echo "<p style=\"font-family: monospace; text-align: center\">$query;</p>";
 
 # 6. - Esecuzione della query SQL
-$executeQueryResult = sendQuery($cxn, $query);
+$executeQueryResult = mysqli_multi_query($cxn, $query); // utilizzato multi-query per query di eliminazione complesse
 $id = mysqli_insert_id($cxn);
 echo "<p>6. - Query SQL eseguita. L'id auto-increment è: $id.</p>\n";
 
 # 7. - Visualizzazione record post-modifica
-if ($AP == "") // nel caso di nuova apertura, determina il numero AP con l'id auto-increment della query eseguita
-	$AP = $id;
-$postmodQuery = viewSingleRecordQueryFactory($AP);
-
-$postmodQueryResult = sendQuery($cxn, $postmodQuery);
-singoloStampaTabella($postmodQueryResult, $caption);
-echo "<p>7. - Visualizzato record post-modifica.</p>\n";
+if (!($action == 'DELETE' && $table == 'AP')) {
+	if ($AP == "") // nel caso di nuova apertura, determina il numero AP con l'id auto-increment della query eseguita
+		$AP = $id;
+	$postmodQuery = viewSingleRecordQueryFactory($AP);
+	$postmodQueryResult = sendQuery($cxn, $postmodQuery);
+	singoloStampaTabella($postmodQueryResult, $caption);
+	echo "<p>7. - Visualizzato record post-modifica.</p>\n";
+}
+else
+	echo "<p>7. - Record post-modifica: eliminato AP.</p>\n";
 
 # 8. - Chiusura della connessione al database MySQL
 mysqli_close($cxn);
 echo "<p>8. - Connessione al database MySQL chiusa.</p>\n";
 
 # 9. - Visualizzazione link per controllo aggiornamento database
-echo "<p>9. - <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=\">Link</a> per il controllo della corretta esecuzione della query.</p>\n";
+echo "<p>9. - <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=#$AP\">Link</a> per il controllo della corretta esecuzione della query.</p>\n";
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

@@ -20,7 +20,7 @@ $caption = queryAndCaptionFactory($_GET['eli'], $_GET['chiusi'], $_GET['tipo'], 
 $adminMode = TRUE;
 
 // sequenza programma principale
-$cxn    = connectToDatabase($host, $user, $password, $database);
+$cxn    = connectToDifferitiDatabase();
 $result = sendQuery($cxn, $query);
 stampaTabella($result, $caption, $adminMode);
 
@@ -73,12 +73,8 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $
     for ($i = 0; $i < mysqli_num_rows($R); $i++) {
 
         $row = $R->fetch_assoc();  
-        $editLink = "differiti-modifica.php?AP=";
-        $editLink .= $row["AP"]."&PR=";
-        $editLink .= $row["PR"]."&CH=";
-        $editLink .= $row["CH"]."&eli=";
-	$editLink .= $eli."&ideli=";
-        $editLink .= $ideli."#caption";
+        $editLink = "differiti-modifica.php?AP="; // si vuole passare a differiti-modifica.php esclusivamente l'indicazione dell'AP interessato
+        $editLink .= $row["AP"]."#caption"; // utilizzato perché il browser effettui automaticamente lo scroll verso il form di richiesta modifica
 
         echo "\n    <tr>";
 
@@ -144,6 +140,9 @@ function individuaAP_PR_CH($res)
     }
     return $AP_PR_CHArray;
 }
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

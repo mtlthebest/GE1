@@ -12,53 +12,76 @@ include("common-open-page.inc.php");
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOTTO ###
 
-// debug variabili
+/*
+ * Questo programma riceve la variabile $_GET['AP'] da "differiti-display.php".
+ * Anzitutto è necessario ottenere informazioni in merito alla situazione del differito
+ * (fiancate coinvolte, eventuale esistenza di PR o CH, ecc...).
+ * Si interroga il database (vista `view_differiti`) per ottenere tali informazioni;
+ * saranno poi passate ai file .php che lo richiedono.
+ */
+
+// Connessione al database MySQL
+$cxn = connectToDifferitiDatabase();
+
+// Ottenimento di informazioni ulteriori in merito allo stato del differito (idAP = $_GET['AP'])
+$obtainInfoQuery = "SELECT `idapertura`, `ideli`, `numerofiancata`, `idnote`, `idchiusura` " .
+	"FROM `view_differiti` " .
+	"WHERE (`idapertura` = '{$_GET['AP']}')";
+
+echo "<p>InfoQuery: $obtainInfoQuery</p>\n";
+
+$resultAPStatus = sendQuery($cxn, $obtainInfoQuery); // invio della query al database per ottenere la riga specifica del differito da modificare
+
+$AP = $_GET['AP'];
+while($riga = mysqli_fetch_array($resultAPStatus)) { // ciclo per assegnare i valori alle variabili richieste, prendendoli dal database
+	$eli = $riga['numerofiancata'];
+	$ideli = $riga['ideli'];
+	$PR = $riga['idnote'];
+	$CH = $riga['idchiusura'];
+}
+
+// Solo debug: controllo se le variabili necessarie sono state ottenute con la query precedente
 echo "<p>Debug variabili:</p>\n";
 echo "<ul>";
-echo "<li>eli: {$_GET['eli']}</li>\n";
-echo "<li>ideli: {$_GET['ideli']}</li>\n";
-// echo "<li>action: $action</li>\n";
-// echo "<li>table: $table</li>\n";
-echo "<li>AP: {$_GET['AP']}</li>\n";
-echo "<li>PR: {$_GET['PR']}</li>\n";
-echo "<li>CH: {$_GET['CH']}</li>\n";
+echo "<li>eli: $eli</li>\n";
+echo "<li>ideli: $ideli</li>\n";
+echo "<li>AP: $AP</li>\n";
+echo "<li>PR: $PR</li>\n";
+echo "<li>CH: $CH</li>\n";
 echo "</ul>";
-// fine debug
+// Fine debug
 
-if ($_GET['AP'] == "")
-	$AP = "is null";
+// Stampa della tabella riepilogativa per un singolo differito (quello interessato)
+$sql_AP = "= '".$AP."'";
+if ($PR == "")
+	$sql_PR = "is null";
 else
-	$AP = "= '".$_GET['AP']."'";
+	$sql_PR = "= '".$PR."'";
 
-if ($_GET['PR'] == "")
-	$PR = "is null";
+if ($CH == "")
+	$sql_CH = "is null";
 else
-	$PR = "= '".$_GET['PR']."'";
-
-if ($_GET['CH'] == "")
-	$CH = "is null";
-else
-	$CH = "= '".$_GET['CH']."'";
-
-// sequenza programma principale
-$cxn = connectToDatabase($host, $user, $password, $database);
-$query = <<<SINGLEQUERY
+	$sql_CH = "= '".$CH."'";
+$singleQuery = <<<SINGLEQUERY
 SELECT
 `numerofiancata` as Elicottero, `inconveniente`, `tipologia` as `tipo`, `datainconveniente` as `data AP`, `firmaap` as `firma AP`, `note`, `provvedimentocorrettivoadottato` as provvedimento, `durataoreuomo` as `ore/uomo`, `datachiusura` as `data CH`, `firmach` as `firma CH`
 FROM
 `view_differiti`
 WHERE
-( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
+( (`idapertura` $sql_AP) AND (`idnote` $sql_PR) AND (`idchiusura` $sql_CH) )
 SINGLEQUERY;
 
-$caption = "<a name=\"caption\" id=\"caption\">Record che sarà interessato dalla modifica:" .
-		" (idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
-$result = sendQuery($cxn, $query);
-
-include("differiti-display-single.inc.php"); // funzioni dedicate alla stampa della tabella per il singolo differito
+$caption = "<a name=\"caption\" id=\"caption\">Record che sarà interessato dalla modifica:";
+$result = sendQuery($cxn, $singleQuery);
+include("differiti-display-single.inc.php");
 singoloStampaTabella($result, $caption);
+
+// A seconda della situazione del differito il form propone, attraverso "radio button", le operazioni che è possibile effettuare su di esso.
 include("differiti-modifica-formBuilder.inc.php");
-buildForm(determineFormButtons($_GET['AP'], $_GET['PR'], $_GET['CH']), $_GET['eli'], $_GET['ideli'], $_GET['AP'], $_GET['PR'], $_GET['CH']);
+buildForm(determineFormButtons($AP, $PR, $CH), $eli, $ideli, $AP, $PR, $CH);
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
