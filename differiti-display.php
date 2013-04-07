@@ -41,12 +41,12 @@ function stampaTabella($R, $capt, $isAdmin)
 
 function setTableCaption($capt, $admin)
 {
-    echo "    <caption>\n";
+    echo "    <caption><a id=\"caption\" name=\"caption\">\n";
     echo "      " . $capt;
     // in caso di amministratore, si segnala nella didascalia della tabella
     if($admin)
         echo " / modalità amministratore";
-    echo "\n    </caption>\n";
+    echo "\n    </a></caption>\n";
     return;
 }
 
@@ -75,13 +75,15 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $
         $row = $R->fetch_assoc();  
         $editLink = "differiti-modifica.php?AP="; // si vuole passare a differiti-modifica.php esclusivamente l'indicazione dell'AP interessato
         $editLink .= $row["AP"]."#caption"; // utilizzato perché il browser effettui automaticamente lo scroll verso il form di richiesta modifica
+	$anchorSet = FALSE;
+
 
         echo "\n    <tr>";
 
         $j   = 0; // inizializzazione contatore colonne
         foreach ($row as $value) {
 
-            if (in_array($j, $dateColumns) && $value != "") // controlla se tra le colonne relative alle date
+            if (in_array($j, $dateColumns) && $value != "") // controlla se ci si trova tra le colonne relative alle date
                 $value = date("d/m/Y", strtotime($value)); // nel caso, formatta la data
             
             if (in_array($j, $idColumns)) { // controlla se tra le colonne relative alle date
@@ -90,7 +92,15 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $
             }
 
             if (in_array($j, $textColumns) && $value != "") { // controlla se tra le colonne con testo lungo
-                echo "\n      <td style=\"text-align: left\">" . $value . "</td>\n"; // nel caso, formatta con rientro
+		$anchorInit = "";
+		$anchorEnd = "";
+		if(!$anchorSet) {
+			$anchorInit = "<a id=\"{$row['AP']}\" name=\"{$row['AP']}\">";
+			$anchorEnd = "</a>";
+		}
+                echo "\n      <td style=\"text-align: left\">" . // ancorato AP uso "#" nell'URL
+			$anchorInit . $value . $anchorEnd . "</td>\n"; // nel caso, formatta con rientro
+		$anchorSet = TRUE; // segnala di aver ancorato la cella, evita successivi ancoraggi ridondanti
                 $j++;
                 continue; // passa alla prossima colonna
             }

@@ -17,7 +17,7 @@ $query = "SELECT grado, cognome, nome FROM view_personale";
 $caption = "<a name=\"table\" id=\"table\"></a>Elenco del personale militare in forza al Gruppo";
 
 // sequenza programma principale
-$cxn = connectToDatabase($host, $user, $password, $database);
+$cxn = connectToDifferitiDatabase();
 $result = sendQuery($cxn, $query);
 stampaTabella($result, $caption);
 echo '<p style="text-align: center">Per aggiungere un nuovo nominativo alla lista, utilizza questo <a href="personale-form-upload.php">form</a>.</p>';
@@ -67,6 +67,9 @@ function stampaDatiTabella($R)
 	}
 	return;
 }
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

@@ -119,7 +119,8 @@ function prepareFetchHyperlink($ideli, $eli, $closed, $type, $value) {
         $ideli = "";
     }
     $and = htmlentities("&");
-    return '<a href="differiti-display.php?ideli=' . $ideli . $and . 'eli=' . $eli . $and . 'chiusi=' . $closed . $and . 'tipo=' . $type . '">' . $value . '</a>';
+    return '<a href="differiti-display.php?ideli=' . $ideli . $and . 'eli=' . $eli . $and . 'chiusi=' . $closed . $and . 'tipo=' . $type . '#caption">' .
+	$value . '</a>';
 }
 
 function compileImage($file, $alt) {

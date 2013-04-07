@@ -28,7 +28,7 @@ $obtainInfoQuery = "SELECT `idapertura`, `ideli`, `numerofiancata`, `idnote`, `i
 	"FROM `view_differiti` " .
 	"WHERE (`idapertura` = '{$_GET['AP']}')";
 
-echo "<p>InfoQuery: $obtainInfoQuery</p>\n";
+// echo "<p>InfoQuery: $obtainInfoQuery</p>\n";
 
 $resultAPStatus = sendQuery($cxn, $obtainInfoQuery); // invio della query al database per ottenere la riga specifica del differito da modificare
 
@@ -40,7 +40,7 @@ while($riga = mysqli_fetch_array($resultAPStatus)) { // ciclo per assegnare i va
 	$CH = $riga['idchiusura'];
 }
 
-// Solo debug: controllo se le variabili necessarie sono state ottenute con la query precedente
+/* Solo debug: controllo se le variabili necessarie sono state ottenute con la query precedente
 echo "<p>Debug variabili:</p>\n";
 echo "<ul>";
 echo "<li>eli: $eli</li>\n";
@@ -49,7 +49,7 @@ echo "<li>AP: $AP</li>\n";
 echo "<li>PR: $PR</li>\n";
 echo "<li>CH: $CH</li>\n";
 echo "</ul>";
-// Fine debug
+*/ // Fine debug
 
 // Stampa della tabella riepilogativa per un singolo differito (quello interessato)
 $sql_AP = "= '".$AP."'";

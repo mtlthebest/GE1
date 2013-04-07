@@ -31,7 +31,7 @@ if (!isset($_GET['action'])) // ottiene $action da GET o POST a seconda dell'URL
 else
 	$action = $_GET['action'];
 
-// debug variabili
+/* debug variabili
 echo "<p>Debug variabili:</p>\n";
 echo "<ul>";
 echo "<li>eli: {$_GET['eli']}</li>\n";
@@ -42,7 +42,7 @@ echo "<li>AP: {$_GET['AP']}</li>\n";
 echo "<li>PR: {$_GET['PR']}</li>\n";
 echo "<li>CH: {$_GET['CH']}</li>\n";
 echo "</ul>";
-// fine debug
+*/ // fine debug
 
 # SUDDIVISIONE IN CASI (devono essere tutti gestiti dal programma .php):
 
@@ -87,8 +87,7 @@ FROM
 WHERE
 ( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
 SINGLEQUERY;
-	$caption = "<a name=\"caption\" id=\"caption\"></a>Record che sarà interessato dalla modifica: " .
-		"(idAP = \"{$_GET['AP']}\" / idPR = \"{$_GET['PR']}\" / idCH = \"{$_GET['CH']}\")";
+	$caption = "<a name=\"caption\" id=\"caption\"></a>Record che sarà interessato dalla modifica:";
 	$result = sendQuery($cxn, $singleQuery);
 	include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
 	singoloStampaTabella($result, $caption);

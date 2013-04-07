@@ -61,7 +61,7 @@ $insertQuery .= "'".$nome."'\n);";
 
 // connessione al database e esecuzione query (se check validazione OK)
 if(!empty($idGrado) && !empty($cognome) && !empty($nome)) {
-	$cxn = connectToDatabase($host, $user, $password, $database);
+	$cxn = connectToDifferitiDatabase();
 	$result = sendQuery($cxn, $insertQuery);
 }
 
@@ -75,6 +75,9 @@ function stampaPaginaWeb($insertQ) {
 	echo "<p style=\"text-align: center\">Controlla <a href=\"personale-home.php#table\">qui</a> che il nominativo sia stato correttamente inserito.</p>";
 	return;
 }
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

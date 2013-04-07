@@ -16,7 +16,7 @@ include("common-open-page.inc.php");
 $query = "SELECT * FROM table_gradi ORDER BY gerarchia DESC";
 
 // sequenza programma principale
-$cxn = connectToDatabase($host, $user, $password, $database);
+$cxn = connectToDifferitiDatabase();
 $result = sendQuery($cxn, $query);
 visualizzaForm($result);
 
@@ -39,6 +39,9 @@ function visualizzaForm($result) {
 	echo "    </fieldset>\n";
 	echo "  </form>\n";
 }
+
+// Chiusura della connessione al database MySQL
+mysqli_close($cxn);
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 
