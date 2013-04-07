@@ -20,3 +20,26 @@ The source code is written mainly in PHP. Obviously, I'm also using (X)HTML. I w
 Other languages I'm using are:
   - CSS;
   - SQL.
+
+ ##############################
+ # FUNCTIONS YET TO IMPLEMENT #
+ ##############################
+
+1) Usability:
+   - Ability to edit AP, PR and CH records (files to edit: "differiti-editor.php", ...);
+   - If I add or modify a record it'd be nice if "differiti-display.php" highlighted the specific row (yellow, for example?). This is just
+     to allow people to easily check data...
+
+2) Web pages standardization:
+   - MySQL database connection: most .php pages open and close connections (commonality). Should I put that in .inc.php files and avoid repetition?
+
+3) Flexibility:
+   - "differiti-home.php" should dynamically draw a table even if i changed/added a new entry in table "table_differititipologie".
+     At the moment, that table is hard-coded (veeeeeeeery baaaaaaaaad, any change to that database table now would break the site!);
+   - The same reasoning applies to helicopters: it should be an easy task to migrate this site for use with other aircrafts... right now it's
+     impossible, because the "summary table" structure in "differiti-home.php" is hard-coded...
+
+4) Security:
+   - Authentication system (I'd like to use an existing Exchange system in our Intranet -> PHP + libcurl?);
+   - SSL connection (not mandatory, but it should be easy to do with XAMPP. How many people would think to use Wireshark while attached to one
+     of our routers?). I'll implement SSL anyway...
