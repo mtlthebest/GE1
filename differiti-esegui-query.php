@@ -98,7 +98,7 @@ mysqli_close($cxn);
 echo "<p>8. - Connessione al database MySQL chiusa.</p>\n";
 
 # 9. - Visualizzazione link per controllo aggiornamento database
-echo "<p>9. - <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=#$AP\">Link</a> per il controllo della corretta esecuzione della query.</p>\n";
+echo "<p>9. - <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=#AP_$AP\">Link</a> per il controllo della corretta esecuzione della query.</p>\n";
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

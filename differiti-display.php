@@ -95,7 +95,7 @@ function stampaDatiTabella($R, $admin, $dateColumns, $textColumns, $idColumns, $
 		$anchorInit = "";
 		$anchorEnd = "";
 		if(!$anchorSet) {
-			$anchorInit = "<a id=\"{$row['AP']}\" name=\"{$row['AP']}\">";
+			$anchorInit = "<a id=\"AP_{$row['AP']}\">";
 			$anchorEnd = "</a>";
 		}
                 echo "\n      <td style=\"text-align: left\">" . // ancorato AP uso "#" nell'URL

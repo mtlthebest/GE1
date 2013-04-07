@@ -43,3 +43,6 @@ Other languages I'm using are:
    - Authentication system (I'd like to use an existing Exchange system in our Intranet -> PHP + libcurl?);
    - SSL connection (not mandatory, but it should be easy to do with XAMPP. How many people would think to use Wireshark while attached to one
      of our routers?). I'll implement SSL anyway...
+
+5) Errors:
+   - Must remove attribute "name" from anchors... Not its place!
