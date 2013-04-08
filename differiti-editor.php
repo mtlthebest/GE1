@@ -94,7 +94,7 @@ SINGLEQUERY;
 }
 
 # Step C. - PRESENTAZIONE DEL FORM DI CARICAMENTO O MODIFICA
-echo "<form class=\"editDifferiti\" accept-charset=\"UTF-8\" action=\"differiti-esegui-query.php?" . // pagina .php richiamata dal form e CSS
+echo "<form class=\"editDifferiti\" action=\"differiti-esegui-query.php?" . // pagina .php richiamata dal form e CSS
 	"eli={$_GET['eli']}&ideli={$_GET['ideli']}&table=$table&action=$action&" . // parametri
 	"AP={$_GET['AP']}&PR={$_GET['PR']}&CH={$_GET['CH']}#summary" . // parametri relativi agli ID dei record nelle tabelle
 	"\" method=\"post\">\n"; // metodo utilizzato: POST

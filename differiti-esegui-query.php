@@ -38,11 +38,11 @@ include("differiti-editor-query-factory.inc.php");
 include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
 
 # 1. - Titolo dell'azione che si sta eseguendo (utilizza i dati forniti da $_GET e $_POST)
-echo "<a name=\"summary\" id=\"summary\"><p>Elicottero $eli: richiesta operazione '$action' per la tabella $table (ID differito: $AP).</p></a>\n";
+echo "<a name=\"summary\" id=\"summary\"><h3 style=\"text-align: center\">Elicottero $eli</h3></a>\n";
 
 # 2. - Connessione al database MySQL
 $cxn = connectToDifferitiDatabase();
-echo "<p>2. - Connessione al database MySQL eseguita.</p>\n";
+// echo "<p>2. - Connessione al database MySQL eseguita.</p>\n";
 
 # 3. - Visualizzazione record pre-modifica
 if ( !($action == "INSERT" && $table == "AP") ) {
@@ -51,7 +51,7 @@ if ( !($action == "INSERT" && $table == "AP") ) {
 	$premodQueryResult = sendQuery($cxn, $premodQuery);
 	singoloStampaTabella($premodQueryResult, $caption);
 }
-echo "<p>3. - Visualizzato record pre-modifica.</p>\n";
+// echo "<p>3. - Visualizzato record pre-modifica.</p>\n";
 
 # 4. - Creazione della query utilizzando i dati forniti da $_GET e $_POST
 if ($action == 'INSERT') {
@@ -70,16 +70,16 @@ else {
 	$query = "";
 	echo "<p>Errore durante la costruzione della query SQL.</p>\n";
 }
-echo "<p>4. - Query SQL per la modifica del database creata.</p>\n";
+// echo "<p>4. - Query SQL per la modifica del database creata.</p>\n";
 
 # 5. - Visualizzazione codice SQL della query che viene eseguita
-echo "<p>5. - Visualizzazione query SQL:</p>\n";
-echo "<p style=\"font-family: monospace; text-align: center\">$query;</p>";
+echo "<p style=\"text-align: center\">Query SQL inviata al database:</p>\n";
+echo "<p class=\"code\">$query;</p>";
 
 # 6. - Esecuzione della query SQL
-$executeQueryResult = mysqli_multi_query($cxn, $query); // utilizzato multi-query per query di eliminazione complesse
+$executeQueryResult = sendMultiQuery($cxn, $query); // utilizzato multi-query per query di eliminazione complesse
 $id = mysqli_insert_id($cxn);
-echo "<p>6. - Query SQL eseguita. L'id auto-increment è: $id.</p>\n";
+// echo "<p>6. - Query SQL eseguita. L'id auto-increment è: $id.</p>\n";
 
 # 7. - Visualizzazione record post-modifica
 if (!($action == 'DELETE' && $table == 'AP')) {
@@ -88,17 +88,22 @@ if (!($action == 'DELETE' && $table == 'AP')) {
 	$postmodQuery = viewSingleRecordQueryFactory($AP);
 	$postmodQueryResult = sendQuery($cxn, $postmodQuery);
 	singoloStampaTabella($postmodQueryResult, $caption);
-	echo "<p>7. - Visualizzato record post-modifica.</p>\n";
+	// echo "<p>7. - Visualizzato record post-modifica.</p>\n";
 }
-else
-	echo "<p>7. - Record post-modifica: eliminato AP.</p>\n";
+// else
+//	echo "<p>7. - Record post-modifica: eliminato AP.</p>\n";
 
 # 8. - Chiusura della connessione al database MySQL
 mysqli_close($cxn);
-echo "<p>8. - Connessione al database MySQL chiusa.</p>\n";
+// echo "<p>8. - Connessione al database MySQL chiusa.</p>\n";
 
 # 9. - Visualizzazione link per controllo aggiornamento database
-echo "<p>9. - <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=#AP_$AP\">Link</a> per il controllo della corretta esecuzione della query.</p>\n";
+if ($action == 'DELETE' && $table == 'AP')
+	echo "<p style=\"text-align: center\">Differito eliminato. Torna alla <a href=\"differiti-home.php#table\">" .
+		"schermata principale</a> per continuare.</p>\n";
+else
+	echo "<p style=\"text-align: center\">Controlla <a href=\"differiti-display.php?ideli=&eli=&chiusi=1&tipo=#AP_$AP\">" .
+		"qui</a> la corretta esecuzione delle modifiche richieste.</p>\n";
 
 ### CODICE PRINCIPALE DELLA PAGINA QUI SOPRA ###
 

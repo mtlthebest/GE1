@@ -13,7 +13,24 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 
 	} // fine caso DELETE-AP, DELETE-PR, DELETE-CH
 	
-	else if ($action == "INSERT" && $table == "AP") { // caso INSERT-AP --- OK, funzionante
+	else if (($action == "INSERT" || $action == "UPDATE") && $table == "AP") { // caso INSERT-AP e UPDATE-AP
+		
+		// inizializzazione form di inserimento/aggiornamento
+		$insertForm = "";
+
+		// caricamento dati precedenti nel caso ($action == "UPDATE")
+		if($action == "UPDATE") {
+			// query per selezionare il differito specifico
+			$loadPreviousQuery = "SELECT * FROM `view_differiti` WHERE (`idapertura` = '$AP')";
+			$previousResult = sendQuery($conn, $loadPreviousQuery);
+			// con questo ciclo si creano variabili che contengono i valori precedenti
+			while($previousRow = mysqli_fetch_array($previousResult)) {
+				$boxTestoDifferito = $previousRow['inconveniente'];
+				$idTipologiaDifferito = $previousRow['idtipo'];
+				$data = date("d/m/Y", strtotime($previousRow['datainconveniente']));
+				$idPersonale = $previousRow['idfirmaap'];
+			}
+		}
 
 		// dichiarazione variabili per query SQL
 		$queryTipologieDifferito = "SELECT * FROM table_differititipologie ORDER BY ordine ASC";
@@ -24,55 +41,93 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 		$resultPersonale = sendQuery($conn, $queryPersonale);
 
 		// box testo differito
-		$insertForm = "";	
+		if($action != "UPDATE")
+			$boxTestoDifferito = "Inserire qui la descrizione del provvedimento correttivo differito...";
 		$insertForm .= "\n    <p><textarea class='txtArea' name='inconveniente'>" .
-			"Inserire qui la descrizione del provvedimento correttivo differito...</textarea></p>";
+			"$boxTestoDifferito</textarea></p>";
 	
 		// selezione tipologia differito
+		if($action != "UPDATE")
+			$idTipologiaDifferito = '5';
 		$insertForm .= "    <p><select name=\"tipologia\">";
 		while($row = mysqli_fetch_assoc($resultTipo)) {
 			$preselection = "";
 			extract($row);
-			if($id == '5') // preseleziona un campo
+			if($id == $idTipologiaDifferito) // preseleziona un campo
 				$preselection = ' selected="selected"';
-			$insertForm .= "\n      <option value='$id'".$preselection.">\n        $tipologia\n      </option>\n";
+			$insertForm .= "\n      <option value='$id'".$preselection . 
+				">\n        $tipologia\n      </option>\n";
 		}
 		$insertForm .= "</select></p>";
 	
 		// selezione data (utilizza JavaScript)
-		$dataOdierna = oggi(); // di default fa trovare la data di oggi nel campo
-		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='data' name='dataInconveniente' /></p>";
+		if($action != "UPDATE")
+			$data = oggi(); // di default fa trovare la data di oggi nel campo, salvo UPDATE
+		$insertForm .= "    <p><input type='text' value='$data' id='data' name='dataInconveniente' /></p>";
 
 		// selezione firma apertura
+		if($action != "UPDATE")
+			$idPersonale = '7';
 		$insertForm .= "    <p><select name=\"firmaApertura\">";
 		while($row = mysqli_fetch_assoc($resultPersonale)) {
 			$preselection = "";
 			extract($row);
-			if($gerarchia == '0')
+			if($id == $idPersonale)
 				$preselection = ' selected="selected"';
-			$insertForm .= "\n      <option value='$id'".$preselection.">\n        $grado $cognome $nome\n      </option>\n";
+			$insertForm .= "\n      <option value='$id'" . 
+				$preselection.">\n        $grado $cognome $nome\n      </option>\n";
 		}
 		$insertForm .= "    </select></p>";
 
 		return $insertForm;
 
-	} // fine caso INSERT-AP
+	} // fine caso INSERT-AP e UPDATE-AP
 
-	else if ($action == "INSERT" && $table == "PR") { // caso INSERT-PR --- OK, funzionante
+	else if (($action == "INSERT" || $action == "UPDATE") && $table == "PR") { // caso INSERT-PR e UPDATE-PR
 
-		$insertForm = "";	
+		// inizializzazione form di inserimento/aggiornamento
+		$insertForm = "";
+
+		// caricamento dati precedenti nel caso ($action == "UPDATE")
+		if($action == "UPDATE") {
+			// query per selezionare il differito specifico
+			$loadPreviousQuery = "SELECT * FROM `view_differiti` WHERE (`idapertura` = '$AP')";
+			$previousResult = sendQuery($conn, $loadPreviousQuery);
+			// con questo ciclo si creano variabili che contengono i valori precedenti
+			while($previousRow = mysqli_fetch_array($previousResult)) {
+				$boxTestoNote = $previousRow['note'];
+			}
+		}
 
 		// box testo annotazioni differito
+		if($action != "UPDATE")
+			$boxTestoNote = "Inserire nota o prosecuzione (PR) per il provvedimento correttivo differito...";
+
 		$insertForm .= "\n    <p><textarea class='txtArea' name='note'>" .
-			"Inserire qui una nota o una prosecuzione (PR) del provvedimento correttivo differito...</textarea></p>";
+			"$boxTestoNote</textarea></p>";
 
 		return $insertForm;
 
-	} // fine caso INSERT-PR
+	} // fine caso INSERT-PR e UPDATE-PR
 
-	else if ($action == "INSERT" && $table == "CH") { // caso INSERT-CH
+	else if (($action == "INSERT" || $action == "UPDATE") && $table == "CH") { // caso INSERT-CH e UPDATE-CH
 
-		$insertForm = ""; // inizializzazione form
+		// inizializzazione form di inserimento/aggiornamento
+		$insertForm = "";
+
+		// caricamento dati precedenti nel caso ($action == "UPDATE")
+		if($action == "UPDATE") {
+			// query per selezionare il differito specifico
+			$loadPreviousQuery = "SELECT * FROM `view_differiti` WHERE (`idapertura` = '$AP')";
+			$previousResult = sendQuery($conn, $loadPreviousQuery);
+			// con questo ciclo si creano variabili che contengono i valori precedenti
+			while($previousRow = mysqli_fetch_array($previousResult)) {
+				$boxProvvedimento = $previousRow['provvedimentocorrettivoadottato'];
+				$oreUomo = $previousRow['durataoreuomo'];
+				$data = date("d/m/Y", strtotime($previousRow['datachiusura']));
+				$idPersonale = $previousRow['idfirmach'];
+			}
+		}
 
 		// dichiarazione variabili per query SQL
 		$queryPersonale = "SELECT * FROM view_personale";
@@ -81,34 +136,37 @@ function editorFormFactory($conn, $eli, $ideli, $action, $table, $AP, $PR, $CH) 
 		$resultPersonale = sendQuery($conn, $queryPersonale);
 
 		// box testo chiusura differito
+		if($action != "UPDATE")
+			$boxProvvedimento = "Inserire provvedimento correttivo adottato per chiusura differito...";
 		$insertForm .= "\n    <p><textarea class='txtArea' name='provvedimentoCorrettivoAdottato'>" .
-			"Inserire qui il provvedimento correttivo adottato per la chiusura (CH) del differito...</textarea></p>";
+			"$boxProvvedimento</textarea></p>";
 	
 		// box testo durata in ore-uomo
-		$insertForm .= "\n    <p><input type='text' value='ore-uomo (ad es.: 2,25)' name='durataOreUomo'>";
+		if($action != "UPDATE")
+			$oreUomo = "ore-uomo (es.: 2,25)";
+		$insertForm .= "\n    <p><input type='text' value='$oreUomo' name='durataOreUomo'>";
 
-		// selezione data (utilizza JavaScript)
-		$dataOdierna = oggi(); // di default fa trovare la data di oggi nel campo
-		$insertForm .= "    <p><input type='text' value='$dataOdierna' id='data' name='dataChiusura' /></p>";
+		if($action != "UPDATE")
+			$data = oggi(); // di default fa trovare la data di oggi nel campo, salvo UPDATE
+		$insertForm .= "    <p><input type='text' value='$data' id='data' name='dataChiusura' /></p>";
 
 		// selezione firma chiusura
+		if($action != "UPDATE")
+			$idPersonale = '7';
 		$insertForm .= "    <p><select name=\"firmaChiusura\">";
 		while($row = mysqli_fetch_assoc($resultPersonale)) {
 			$preselection = "";
 			extract($row);
-			if($gerarchia == '0')
+			if($id == $idPersonale)
 				$preselection = ' selected="selected"';
-			$insertForm .= "\n      <option value='$id'".$preselection.">\n        $grado $cognome $nome\n      </option>\n";
+			$insertForm .= "\n      <option value='$id'" . 
+				$preselection.">\n        $grado $cognome $nome\n      </option>\n";
 		}
 		$insertForm .= "    </select></p>";
 
 		return $insertForm;
 
-	} // fine caso INSERT-CH
-
-	else if ($action == "UPDATE") { // caso UPDATE, più complesso
-		return "<p>Codice per la creazione del form nel caso UPDATE...</p>\n";
-	} // fine caso UPDATE
+	} // fine caso INSERT-CH e UPDATE-CH
 
 	else { // caso non previsto
 		return "<p>Errore durante la creazione del form, caso non previsto.</p>\n";

@@ -1,14 +1,18 @@
 <?php
 
-function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $post_array) { // assembla una query di tipo INSERT
+function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $post_array) {
 
-	echo "<p>insertQueryFactory: chiamata alla funzione.</p>\n";
+	// assembla una query di tipo INSERT
 
 	if($tabella == "AP") {
+
 		// ESEMPIO INSERT-AP valido:
-		// INSERT INTO `differiti`.`table_differitiaperture` (`id`, `elicottero`, `inconveniente`, `tipologia`, `dataInconveniente`,
+		// INSERT INTO `differiti`.`table_differitiaperture`
+		// 	(`id`, `elicottero`, `inconveniente`, `tipologia`, `dataInconveniente`,
 		// 	`firmaApertura`) VALUES (NULL, '7', 'Test di inserimento', '3', '2013-04-04', '13');
-		$dataInconveniente = cleanDate($post_array['dataInconveniente']); // conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+
+		// conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+		$dataInconveniente = cleanDate($post_array['dataInconveniente']); 
 		$inconveniente = cleanInput($conn, $post_array['inconveniente']); // pulizia e preparazione dati
 		$insertAPQuery = "INSERT INTO `differiti`.`table_differitiaperture` (`id`, `elicottero`, `inconveniente`, " .
 			"`tipologia`, `dataInconveniente`, `firmaApertura`) VALUES (NULL, ";
@@ -19,7 +23,8 @@ function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $
 
 	else if($tabella == "PR") {
 		// ESEMPIO INSERT-PR valido:
-		// INSERT INTO `differiti`.`table_differitiannotazioni` (`id`, `differito`, `note`) VALUES (NULL, '9', 'test di inserimento');
+		// INSERT INTO `differiti`.`table_differitiannotazioni`
+		// 	(`id`, `differito`, `note`) VALUES (NULL, '9', 'test di inserimento');
 		$note = cleanInput($conn, $post_array['note']); // pulizia e preparazione dati
 		$insertPRQuery = "INSERT INTO `differiti`.`table_differitiannotazioni` (`id`, `differito`, `note`) VALUES (NULL, ";
 		$insertPRQuery .= "'$ap', '" . $note . "')";
@@ -27,12 +32,17 @@ function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $
 	}
 
 	else if($tabella == "CH") {
+
 		// ESEMPIO INSERT-CH valido:
 		// INSERT INTO `differiti`.`table_differitichiusure` (`id`, `differito`, `provvedimentoCorrettivoAdottato`,
-		// 	`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, '12', 'TEST CHIUSURA', '11', '2013-04-04', '10');
-		$dataChiusura = cleanDate($post_array['dataChiusura']); // conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
-		$durataOreUomo = cleanHour($post_array['durataOreUomo']);
-		$provvedimentoCorrettivoAdottato = cleanInput($conn, $post_array['provvedimentoCorrettivoAdottato']); // pulizia e preparazione dati
+		// 	`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, '12', 'TEST CHIUSURA',
+		// 	'11', '2013-04-04', '10');
+
+		// conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+		$dataChiusura = cleanDate($post_array['dataChiusura']);
+ 		$durataOreUomo = cleanHour($post_array['durataOreUomo']);
+		// pulizia e preparazione dati
+		$provvedimentoCorrettivoAdottato = cleanInput($conn, $post_array['provvedimentoCorrettivoAdottato']); 
 		$insertCHQuery = "INSERT INTO `differiti`.`table_differitichiusure` (`id`, `differito`, `provvedimentoCorrettivoAdottato`, " .
 			"`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, ";
 		$insertCHQuery .= "'$ap', '$provvedimentoCorrettivoAdottato', $durataOreUomo, '$dataChiusura', '{$post_array['firmaChiusura']}')";
@@ -40,13 +50,69 @@ function insertQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $
 	}
 	
 	else {
-		echo "<p>insertQueryFactory(): errore durante la creazione della query.</p>\n";		
-		return "SELECT * from differiti_view"; // in caso di problemi restituisce una query "innocua" per non danneggiare il database
+		echo "<p>insertQueryFactory(): errore durante la creazione della query.</p>\n";
+		// in caso di problemi restituisce una query "innocua" per non danneggiare il database
+		return "SELECT * from differiti_view";
 	}
 }
 
-function updateQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $post_array) { // assembla una query di tipo UPDATE
-	return "SELECT * from differiti_view";
+function updateQueryFactory($conn, $fiancata, $ideli, $tabella, $ap, $pr, $ch, $post_array) {
+
+	// assembla una query di tipo UPDATE
+
+	if($tabella == "AP") {
+
+		// ESEMPIO UPDATE-AP valido:
+		// UPDATE  `differiti`.`table_differitiaperture` SET  `inconveniente` =
+		// 	'Rimosso pannello di controllo del sistema Star Safire S/N 20031106-01.'
+		// 	WHERE `table_differitiaperture`.`id` =6;
+
+		// conversione data gg/mm/aaaa in yyyy-mm-dd per MySQL
+		$dataInconveniente = cleanDate($post_array['dataInconveniente']); 
+		$inconveniente = cleanInput($conn, $post_array['inconveniente']); // pulizia e preparazione dati
+		$updateAPQuery  = "UPDATE `differiti`.`table_differitiaperture` SET ";
+		$updateAPQuery .= "`inconveniente` = '$inconveniente', ";
+		$updateAPQuery .= "`tipologia` = '{$post_array['tipologia']}', ";
+		$updateAPQuery .= "`dataInconveniente` = '$dataInconveniente', ";
+		$updateAPQuery .= "`firmaApertura` = '{$post_array['firmaApertura']}' ";
+		$updateAPQuery .= "WHERE `table_differitiaperture`.`id` = '$ap'";
+
+		return $updateAPQuery;
+	}
+
+	else if($tabella == "PR") {
+		
+		$note = cleanInput($conn, $post_array['note']); // pulizia e preparazione dati
+		$updatePRQuery = "UPDATE `differiti`.`table_differitiannotazioni` SET ";
+		$updatePRQuery .= "`note` = '$note' ";
+		$updatePRQuery .= "WHERE `table_differitiannotazioni`.`id` = '$pr'";
+		return $updatePRQuery;
+	}
+
+	else if($tabella == "CH") {
+
+		// INSERT INTO `differiti`.`table_differitichiusure` (`id`, `differito`, `provvedimentoCorrettivoAdottato`,
+		// 	`durataOreUomo`, `dataChiusura`, `firmaChiusura`) VALUES (NULL, '12', 'TEST CHIUSURA',
+		// 	'11', '2013-04-04', '10');
+
+		$dataChiusura = cleanDate($post_array['dataChiusura']);
+ 		$durataOreUomo = cleanHour($post_array['durataOreUomo']);
+		// pulizia e preparazione dati
+		$provvedimentoCorrettivoAdottato = cleanInput($conn, $post_array['provvedimentoCorrettivoAdottato']); 
+		$updateCHQuery  = "UPDATE `differiti`.`table_differitichiusure` SET ";
+		$updateCHQuery .= "`provvedimentoCorrettivoAdottato` = '$provvedimentoCorrettivoAdottato', ";
+		$updateCHQuery .= "`durataOreUomo` = $durataOreUomo, ";
+		$updateCHQuery .= "`dataChiusura` = '$dataChiusura', ";
+		$updateCHQuery .= "`firmaChiusura` = '{$post_array['firmaChiusura']}' ";
+		$updateCHQuery .= "WHERE `table_differitichiusure`.`id` = '$ch'";
+
+		return $updateCHQuery;
+	}
+
+	else {
+		echo "<p>updateQueryFactory(): errore durante la creazione della query.</p>\n";		
+		return "SELECT * from differiti_view"; // in caso di problemi restituisce una query "innocua" per non danneggiare il database
+	}
 }
 
 function deleteQueryFactory($conn, $fiancata, $ideli, $tableToUse, $idAP, $idPR, $idCH, $post_array) {
@@ -55,8 +121,6 @@ function deleteQueryFactory($conn, $fiancata, $ideli, $tableToUse, $idAP, $idPR,
 	DELETE FROM `differiti`.`table_differitiannotazioni`
 	WHERE `table_differitiannotazioni`.`id` = 1 AND `table_differitiannotazioni`.`differito` = 7
 	*/
-
-	echo "<p>deleteQueryFactory: chiamata alla funzione.</p>\n";
 
 	$deletePRsql = "";
 	$deleteCHsql = "";
