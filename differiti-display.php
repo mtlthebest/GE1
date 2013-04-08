@@ -41,7 +41,7 @@ function stampaTabella($R, $capt, $isAdmin)
 
 function setTableCaption($capt, $admin)
 {
-    echo "    <caption><a id=\"caption\" name=\"caption\">\n";
+    echo "    <caption><a id=\"caption\">\n";
     echo "      " . $capt;
     // in caso di amministratore, si segnala nella didascalia della tabella
     if($admin)

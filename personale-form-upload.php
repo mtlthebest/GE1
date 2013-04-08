@@ -22,7 +22,7 @@ visualizzaForm($result);
 
 // funzioni utilizzate
 function visualizzaForm($result) {
-	echo "  <form action=\"personale-database-insert.php\" accept-charset=\"UTF-8\" method=\"post\">\n";
+	echo "  <form action=\"personale-database-insert.php\" method=\"post\">\n";
 	echo "    <fieldset>\n";
 	echo "      <legend>Caricamento nominativi per il personale militare</legend>\n";
 	echo "\n      <p><select name=\"gradeID\">";

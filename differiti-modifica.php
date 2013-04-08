@@ -71,7 +71,7 @@ WHERE
 ( (`idapertura` $sql_AP) AND (`idnote` $sql_PR) AND (`idchiusura` $sql_CH) )
 SINGLEQUERY;
 
-$caption = "<a name=\"caption\" id=\"caption\">Record che sarà interessato dalla modifica:";
+$caption = "<a id=\"caption\">Record che sarà interessato dalla modifica:";
 $result = sendQuery($cxn, $singleQuery);
 include("differiti-display-single.inc.php");
 singoloStampaTabella($result, $caption);

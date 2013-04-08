@@ -87,7 +87,7 @@ FROM
 WHERE
 ( (`idapertura` $AP) AND (`idnote` $PR) AND (`idchiusura` $CH) )
 SINGLEQUERY;
-	$caption = "<a name=\"caption\" id=\"caption\"></a>Record che sarà interessato dalla modifica:";
+	$caption = "<a id=\"caption\"></a>Record che sarà interessato dalla modifica:";
 	$result = sendQuery($cxn, $singleQuery);
 	include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
 	singoloStampaTabella($result, $caption);
@@ -102,7 +102,7 @@ echo "<form class=\"editDifferiti\" action=\"differiti-esegui-query.php?" . // p
 // impostazione fieldset e legenda
 echo "<fieldset>\n";
 $legend = legendFactory($action, $_GET['eli'], $table);
-echo "<legend><a name=\"legend\" id=\"legend\">$legend</legend>\n";
+echo "<legend><a id=\"legend\">$legend</legend>\n";
 
 // campi del form per l'inserimento o la modifica dei dati
 include("differiti-editor-form-factory.inc.php");

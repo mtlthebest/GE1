@@ -38,7 +38,7 @@ include("differiti-editor-query-factory.inc.php");
 include("differiti-display-single.inc.php"); // funzioni di stampa della tabella per il singolo differito
 
 # 1. - Titolo dell'azione che si sta eseguendo (utilizza i dati forniti da $_GET e $_POST)
-echo "<a name=\"summary\" id=\"summary\"><h3 style=\"text-align: center\">Elicottero $eli</h3></a>\n";
+echo "<a id=\"summary\"><h3 style=\"text-align: center\">Elicottero $eli</h3></a>\n";
 
 # 2. - Connessione al database MySQL
 $cxn = connectToDifferitiDatabase();

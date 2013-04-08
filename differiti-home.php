@@ -21,7 +21,7 @@ $adminMode = TRUE;
 $query = "SELECT * FROM view_differiti_menu";
 $cxn = connectToDifferitiDatabase();
 $set = sendQuery($cxn, $query);
-$caption = "<a name=\"table\" id=\"table\"></a>Punto di situazione - Provvedimenti correttivi differiti";
+$caption = "<a id=\"table\"></a>Punto di situazione - Provvedimenti correttivi differiti";
 if($adminMode)
 	$caption .= " / modalità amministratore";
 

@@ -14,7 +14,7 @@ include("common-open-page.inc.php");
 
 // dichiarazione variabili
 $query = "SELECT grado, cognome, nome FROM view_personale";
-$caption = "<a name=\"table\" id=\"table\"></a>Elenco del personale militare in forza al Gruppo";
+$caption = "<a id=\"table\"></a>Elenco del personale militare in forza al Gruppo";
 
 // sequenza programma principale
 $cxn = connectToDifferitiDatabase();
