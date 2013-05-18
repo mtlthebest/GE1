@@ -46,19 +46,21 @@ function scriviHeaderPrincipale() {
 
       <th rowspan="2" style="color: red">Apri differito</th>
 
-      <th colspan="5">Differiti ancora aperti</th>
+      <th colspan="6">Differiti ancora aperti</th>
 
       <th rowspan="2">Tutti i differiti</th>
     </tr>
 
     <tr>
-      <td class="larghezzaFissa">Inconvenienti</td>
+      <td class="larghezzaFissa">Inconvenienti differiti</td>
 
-      <td class="larghezzaFissa">Ispezioni</td>
+      <td class="larghezzaFissa">Ispezioni in proroga</td>
 
-      <td class="larghezzaFissa">Sostituzioni</td>
+      <td class="larghezzaFissa">Sostituzioni in proroga</td>
 
-      <td class="larghezzaFissa">Altri</td>
+      <td class="larghezzaFissa">Necessità logistiche</td>
+
+      <td class="larghezzaFissa">Varie</td>
 
       <th>Totale ancora aperti</th>
     </tr>

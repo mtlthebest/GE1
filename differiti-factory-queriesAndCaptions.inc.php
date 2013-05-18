@@ -15,13 +15,16 @@ function queryAndCaptionFactory($chopper, $closed, $type, $request)
     $wheres  = "";
     $T       = "";
     if ($type == 1)
-        $T = "inconvenienti o avarie";
+        $T = "inconvenienti differiti";
     else if ($type == 2)
         $T = "ispezioni in proroga";
     else if ($type == 3)
         $T = "sostituzioni in proroga";
+    else if ($type == 6)
+        $T = "necessità logistiche";
     else if ($type == 4)
-        $T = "altre segnalazioni";
+        $T = "varie";
+
     else
         $T = "--- errore, controllare il codice ---";
     

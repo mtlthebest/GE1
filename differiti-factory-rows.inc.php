@@ -65,6 +65,17 @@ function rowFactory($eli, $ideli, $result) {
         $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $sostituzioni);
         compileCell("td", $cell);
     }
+
+    // Compilazione casella #5-bis: Necessità logistiche -> LINK
+    if ($logistiche == '0')
+        compileCell("td", ""); // mostra cella vuota
+    else {
+        $chiusi = 0; // variabile passata nell'URL, specifica per ogni colonna della tabella
+        $tipo   = "6"; // idem
+        $cell   = prepareFetchHyperlink($ideli, $eli, $chiusi, $tipo, $logistiche);
+        compileCell("td", $cell);
+    }
+
     // Compilazione casella #6: Altri -> LINK
     if ($altri == '0')
         compileCell("td", ""); // mostra cella vuota

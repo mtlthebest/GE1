@@ -5,11 +5,11 @@ $heading = <<<HEADING
   <div style="text-align: center">
     <a href="index.php"><img src="logo_ge1.jpg" alt=
     "Primo Gruppo Elicotteri" /></a>
-    <img src="website_under_construction.png" alt=
-    "under construction" />
 
 
 HEADING;
+//    <img src="website_under_construction.png" alt=
+//    "under construction" />
 echo $heading;
 if($h1HyperLink != "") // implementa il collegamento ipertestuale al titolo se richiesto
 	$h1Title = '<a href="'.$h1HyperLink.'">'.$h1Title.'</a>';
